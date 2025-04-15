@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import com.noteapp.core.utils.DialogUtils
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment: Fragment() {
@@ -44,7 +45,7 @@ abstract class BaseFragment: Fragment() {
             setTextColor(
                 ContextCompat.getColor(
                 requireContext(),
-                com.noteapp.R.color.white
+                com.quizapp.R.color.white
             ))
         }.show()
     }
