@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -72,6 +75,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.9")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.9")
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.glide)
+    //hilt2 = java dependency injector (during build)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+}
+kapt {
+    correctErrorTypes = true
 }
