@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.login.LoginFragment">
+    tools:context=".ui.teacher.add_quiz.success.AddQuizSuccessFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
