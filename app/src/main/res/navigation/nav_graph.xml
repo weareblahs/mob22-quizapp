@@ -3,11 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
+
+
+    <action android:id="@+id/toLoginFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true"
+        app:destination="@+id/loginFragment"/>
+
+    <action android:id="@+id/toHomeFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true"
+        app:destination="@+id/homeFragment"/>
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.quizapp.ui.teacher.home.DashboardFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.quizapp.ui.auth.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

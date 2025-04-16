@@ -5,18 +5,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.quizapp.R
+import com.quizapp.databinding.FragmentLoginBinding
+import com.quizapp.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-
-class LoginFragment : Fragment() {
-
+@AndroidEntryPoint
+class LoginFragment : BaseFragment() {
+    private lateinit var binding: FragmentLoginBinding
+    override val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun setupUiComponents(view: View) {
+        super.setupUiComponents(view)
+        binding.btnGoogleSignIn.setOnClickListener {
+            viewModel.loginWithGoogle(requireContext())
+        }
+    }
+
+    override fun setupViewModelObserver() {
+        super.setupViewModelObserver()
+        lifecycleScope.launch {
+            viewModel.success.collect{
+                findNavController().navigate(LoginFragmentDirections.toHomeFragment())
+            }
+        }
     }
 
 }
