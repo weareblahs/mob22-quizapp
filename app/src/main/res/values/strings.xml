@@ -2,4 +2,10 @@
     <string name="app_name">Quiz App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="role_selection_header_question">Are you a…</string>
+    <string name="student_header_text">Student</string>
+    <string name="student_description_text">Join an existing quiz created by a teacher.</string>
+    <string name="teacher_header_text">Teacher</string>
+    <string name="teacher_description_text">Create your own quiz for students and interact with students.</string>
+    <string name="continueBtn">Continue</string>
 </resources>

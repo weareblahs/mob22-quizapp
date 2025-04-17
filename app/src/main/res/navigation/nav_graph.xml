@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
-
-    <action android:id="@+id/toLoginFragment"
-        app:popUpTo="@id/homeFragment"
-        app:popUpToInclusive="true"
-        app:destination="@+id/loginFragment"/>
-
-    <action android:id="@+id/toHomeFragment"
-        app:popUpTo="@id/loginFragment"
-        app:popUpToInclusive="true"
-        app:destination="@+id/homeFragment"/>
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.quizapp.ui.teacher.home.DashboardFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.quizapp.ui.auth.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_roleSelectionFragment"
+            app:destination="@id/roleSelectionFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/roleSelectionFragment"
+        android:name="com.quizapp.ui.auth.role_selection.RoleSelectionFragment"
+        android:label="fragment_role_selection"
+        tools:layout="@layout/fragment_role_selection" >
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard" />
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherDashboard"
+        android:name="com.quizapp.ui.teacher.home.DashboardFragment"
+        android:label="fragment_teacher_dashboard"
+        tools:layout="@layout/fragment_teacher_dashboard" />
+    <fragment
+        android:id="@+id/studentDashboard"
+        android:name="com.quizapp.ui.student.home.DashboardFragment"
+        android:label="fragment_student_dashboard"
+        tools:layout="@layout/fragment_student_dashboard" />
 </navigation>

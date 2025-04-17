@@ -1,12 +1,14 @@
 package com.quizapp.ui.auth.login
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.quizapp.R
 import com.quizapp.databinding.FragmentLoginBinding
@@ -30,6 +32,8 @@ class LoginFragment : BaseFragment() {
 
     override fun setupUiComponents(view: View) {
         super.setupUiComponents(view)
+
+
         binding.btnGoogleSignIn.setOnClickListener {
             viewModel.loginWithGoogle(requireContext())
         }
@@ -37,11 +41,23 @@ class LoginFragment : BaseFragment() {
 
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
+
         lifecycleScope.launch {
-            viewModel.success.collect{
-                findNavController().navigate(LoginFragmentDirections.toHomeFragment())
+            viewModel.loginInfo.collect {
+                if(it.role.isNullOrBlank() && it.role != "") {
+                    Log.d("debugging", "no role")
+                } else {
+                   if(it.role == "") {
+                       val dir = LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment()
+                       findNavController().navigate(dir)
+                   } else {
+                       when(it.role) {
+                           "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard())
+                           "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard())
+                       }
+                   }
+                }
             }
         }
     }
-
 }
