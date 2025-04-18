@@ -14,10 +14,14 @@
             app:destination="@id/roleSelectionFragment" />
         <action
             android:id="@+id/action_loginFragment_to_teacherDashboard"
-            app:destination="@id/teacherDashboard" />
+            app:destination="@id/teacherDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
         <action
             android:id="@+id/action_loginFragment_to_studentDashboard"
-            app:destination="@id/studentDashboard" />
+            app:destination="@id/studentDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
     </fragment>
     <fragment
         android:id="@+id/roleSelectionFragment"
@@ -26,10 +30,14 @@
         tools:layout="@layout/fragment_role_selection" >
         <action
             android:id="@+id/action_roleSelectionFragment_to_teacherDashboard"
-            app:destination="@id/teacherDashboard" />
+            app:destination="@id/teacherDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
         <action
             android:id="@+id/action_roleSelectionFragment_to_studentDashboard"
-            app:destination="@id/studentDashboard" />
+            app:destination="@id/studentDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
     </fragment>
     <fragment
         android:id="@+id/teacherDashboard"

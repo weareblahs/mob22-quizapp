@@ -23,6 +23,5 @@ class DashboardFragment : BaseFragment() {
 
     override fun setupUiComponents(view: View) {
         super.setupUiComponents(view)
-
     }
 }
