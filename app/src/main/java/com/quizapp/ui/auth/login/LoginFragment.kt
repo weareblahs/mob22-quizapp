@@ -15,10 +15,12 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
+// this file uses Fragment instead of BaseFragment due to access required for onResume lifecycle
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
     private var isResumedFromBackStack = false
+    private var hasBeenCreated = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +44,9 @@ class LoginFragment : Fragment() {
                     Log.d("debugging", "no role")
                 } else {
                     if(it.role == "") {
-                        val dir = LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment()
-                        findNavController().navigate(dir)
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment())
                     } else {
+                        Log.d("debugging", "role is correct")
                         when(it.role) {
                             "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard())
                             "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard())
@@ -53,8 +55,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
-
     }
 
     // exit app when back button tapped. since all the logic is in
@@ -62,9 +62,14 @@ class LoginFragment : Fragment() {
     // will redirect back to the dashboard fragment everytime
     override fun onResume() {
         super.onResume()
-        if (isResumedFromBackStack) {
+        Log.d("debugging", "isResumedFromBackStack: ${isResumedFromBackStack}, hasBeenCreated: ${hasBeenCreated}")
+        if (hasBeenCreated && isResumedFromBackStack) {
             requireActivity().finish()
         }
-        isResumedFromBackStack = true
+        if (!hasBeenCreated) {
+            hasBeenCreated = true
+        } else {
+            isResumedFromBackStack = true
+        }
     }
 }

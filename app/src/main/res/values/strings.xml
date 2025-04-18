@@ -8,4 +8,5 @@
     <string name="teacher_header_text">Teacher</string>
     <string name="teacher_description_text">Create your own quiz for students and interact with students.</string>
     <string name="continueBtn">Continue</string>
+    <string name="google_sign_in">Sign in with Google</string>
 </resources>
