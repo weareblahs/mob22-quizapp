@@ -9,4 +9,7 @@
     <string name="teacher_description_text">Create your own quiz for students and interact with students.</string>
     <string name="continueBtn">Continue</string>
     <string name="google_sign_in">Sign in with Google</string>
+    <string name="join_with_code">Join quiz with code</string>
+    <string name="redo_quizzes">Redo previous quizzes</string>
+    <string name="sample_six_digit_code">123456</string>
 </resources>
