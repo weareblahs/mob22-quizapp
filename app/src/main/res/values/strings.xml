@@ -17,4 +17,6 @@
     <string name="option_2_placeholder">Option 2</string>
     <string name="option_3_placeholder">Option 3</string>
     <string name="option_4_placeholder">Option 4</string>
+    <string name="teacher_dashboard_header_text">My quizzes</string>
+    <string name="teacher_dashboard_add_new_quiz_button">Create new quiz</string>
 </resources>
