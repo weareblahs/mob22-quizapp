@@ -12,4 +12,9 @@
     <string name="join_with_code">Join quiz with code</string>
     <string name="redo_quizzes">Redo previous quizzes</string>
     <string name="sample_six_digit_code">123456</string>
+    <string name="question_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</string>
+    <string name="option_1_placeholder">Option 1</string>
+    <string name="option_2_placeholder">Option 2</string>
+    <string name="option_3_placeholder">Option 3</string>
+    <string name="option_4_placeholder">Option 4</string>
 </resources>
