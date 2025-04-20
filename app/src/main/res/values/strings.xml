@@ -24,4 +24,10 @@
     <string name="add_csv_hint">The fields of the CSV file must follow the format of \"question, answer1, answer2, answer3, answer4, correct_answer\". Do note that the \"correct_answer\" field is the numeric value of the correct answer (example: if the field is 1, then the correct answer is the first one).</string>
     <string name="or">or</string>
     <string name="create_manual_button">Create a quiz manually</string>
+    <string name="quiz_created_header">Quiz created!</string>
+    <string name="quiz_created_pre_code_text">The quiz can be accessed with the following code by the students:</string>
+    <string name="share_quiz_button">Share quiz</string>
+    <string name="back_button_my_quizzes">Back to My Quizzes</string>
+    <string name="quiz_name_textbox_label">Quiz name</string>
+    <string name="quiz_name_hint">Enter quiz name here</string>
 </resources>

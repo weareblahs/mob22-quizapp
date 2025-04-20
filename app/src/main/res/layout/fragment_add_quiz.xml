@@ -8,7 +8,6 @@
     android:padding="16sp"
     tools:context=".ui.teacher.add_quiz.AddQuizFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,11 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="Quiz name"/>
+            android:text="@string/quiz_name_textbox_label"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter quiz name here"
+            android:hint="@string/quiz_name_hint"
+            android:autofillHints="@string/quiz_name_hint"
             android:background="@drawable/textbox"
             android:padding="8sp"/>
 
