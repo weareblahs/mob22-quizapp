@@ -1,14 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16sp"
     tools:context=".ui.teacher.add_quiz.AddQuizFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:paddingBottom="8sp"
+            android:text="@string/create_new_quiz_header" />
+
+        <!-- TEXT BOX FOR QUIZ NAME -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Quiz name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter quiz name here"
+            android:background="@drawable/textbox"
+            android:padding="8sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:gravity="center|center">
+    <!-- OPTION: IMPORT CSV FILE OR ADD MANUALLY -->
+        <Button
+            android:layout_marginHorizontal="8sp"
+            android:layout_marginTop="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAddCSV"
+            app:cornerRadius="8dp"
+            android:text="@string/add_csv_button"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:text="@string/add_csv_hint"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:text="@string/or"/>
+        <Button
+            android:layout_marginHorizontal="8sp"
+            android:layout_marginTop="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCreateManual"
+            app:cornerRadius="8dp"
+            android:text="@string/create_manual_button"/>
+    </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

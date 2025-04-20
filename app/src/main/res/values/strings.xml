@@ -19,4 +19,9 @@
     <string name="option_4_placeholder">Option 4</string>
     <string name="teacher_dashboard_header_text">My quizzes</string>
     <string name="teacher_dashboard_add_new_quiz_button">Create new quiz</string>
+    <string name="create_new_quiz_header">Create new quiz</string>
+    <string name="add_csv_button">Pick a CSV file</string>
+    <string name="add_csv_hint">The fields of the CSV file must follow the format of \"question, answer1, answer2, answer3, answer4, correct_answer\". Do note that the \"correct_answer\" field is the numeric value of the correct answer (example: if the field is 1, then the correct answer is the first one).</string>
+    <string name="or">or</string>
+    <string name="create_manual_button">Create a quiz manually</string>
 </resources>
