@@ -39,4 +39,9 @@
     <string name="add_questions_button">Add questions</string>
     <string name="finish_quiz_creation_button">Finish quiz creation</string>
     <string name="manual_edit_quiz_header">Editing quiz</string>
+    <string name="question_placeholder_text">Question</string>
+    <string name="answer_1_placeholder_text">Answer 1</string>
+    <string name="answer_2_placeholder_text">Answer 2</string>
+    <string name="answer_4_placeholder_text">Answer 4</string>
+    <string name="answer_3_placeholder_text">Answer 3</string>
 </resources>
