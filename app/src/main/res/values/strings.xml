@@ -36,4 +36,7 @@
     <string name="two_digit_placeholder">10</string>
     <string name="accessibility_correct_icon_tag">Correct icon</string>
     <string name="accessibility_wrong_icon_tag">Wrong icon</string>
+    <string name="add_questions_button">Add questions</string>
+    <string name="finish_quiz_creation_button">Finish quiz creation</string>
+    <string name="manual_edit_quiz_header">Editing quiz</string>
 </resources>
