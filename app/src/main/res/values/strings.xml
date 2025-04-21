@@ -30,4 +30,10 @@
     <string name="back_button_my_quizzes">Back to My Quizzes</string>
     <string name="quiz_name_textbox_label">Quiz name</string>
     <string name="quiz_name_hint">Enter quiz name here</string>
+    <string name="back_button_home_page">Back to Home Page</string>
+    <string name="points_placeholder">100 points</string>
+    <string name="your_result_header">Your result</string>
+    <string name="two_digit_placeholder">10</string>
+    <string name="accessibility_correct_icon_tag">Correct icon</string>
+    <string name="accessibility_wrong_icon_tag">Wrong icon</string>
 </resources>
