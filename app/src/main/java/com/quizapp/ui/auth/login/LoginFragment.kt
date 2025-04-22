@@ -40,17 +40,11 @@ class LoginFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.loginInfo.collect {
-                if(it.role.isNullOrBlank() && it.role != "") {
-                    Log.d("debugging", "no role")
-                } else {
-                    if(it.role == "") {
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment())
-                    } else {
-                        Log.d("debugging", "role is correct")
-                        when(it.role) {
-                            "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard())
-                            "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard())
-                        }
+                if(it.isLogin) {
+                    when(it.role) {
+                        "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard())
+                        "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard())
+                        "" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment())
                     }
                 }
             }
