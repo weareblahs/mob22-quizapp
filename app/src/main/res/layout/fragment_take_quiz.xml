@@ -1,14 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ui.student.quiz.TakeQuizFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--  TOP PART: question and points  -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:padding="16sp"
+        android:orientation="vertical"
+        android:layout_weight="50">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0 points"
+            android:textSize="24sp"
+            android:textAlignment="textEnd"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="48sp"
+                android:text="@string/question_placeholder"/>
+        </ScrollView>
 
-</FrameLayout>
+    </LinearLayout>
+
+    <!--  BOTTOM PART: 4 selections and continue button  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="50">
+       <androidx.cardview.widget.CardView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="8sp"
+           android:background="@color/material_dynamic_neutral100"
+           android:id="@+id/cvAnswer1">
+           <TextView
+               android:padding="8sp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="24sp"
+               android:text="@string/option_1_placeholder"/>
+       </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8sp"
+            android:background="@color/material_dynamic_neutral100"
+            android:id="@+id/cvAnswer2">
+            <TextView
+                android:padding="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:id="@+id/answer2Text"
+                android:text="@string/option_2_placeholder"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8sp"
+            android:background="@color/material_dynamic_neutral100"
+            android:id="@+id/cvAnswer3">
+            <TextView
+                android:padding="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:id="@+id/answer3Text"
+                android:text="@string/option_3_placeholder"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8sp"
+            android:background="@color/material_dynamic_neutral100"
+            android:id="@+id/cvAnswer4">
+            <TextView
+                android:padding="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:id="@+id/answer4Text"
+                android:text="@string/option_4_placeholder"/>
+        </androidx.cardview.widget.CardView>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_marginHorizontal="8sp"
+            android:layout_marginTop="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnContinue"
+            app:cornerRadius="8dp"
+            android:text="@string/continueBtn"/>
+    </LinearLayout>
+
+</LinearLayout>

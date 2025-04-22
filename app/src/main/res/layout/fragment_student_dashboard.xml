@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.student.home.DashboardFragment">
+    <!--  TOP PART: enter quiz code to join  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_weight="50">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            android:text="@string/join_with_code"/>
+
+        <EditText
+            android:layout_marginTop="16sp"
+            android:layout_marginHorizontal="50sp"
+            android:layout_width="match_parent"
+            android:autofillHints="@string/join_with_code"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:id="@+id/etCodeInput"
+            android:inputType="number"
+            android:background="@drawable/textbox"
+            android:textSize="36sp"
+            android:padding="12sp"
+            android:hint="@string/sample_six_digit_code"/>
+
+        <Button
+            android:layout_marginHorizontal="50sp"
+            android:layout_marginTop="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnContinue"
+            app:cornerRadius="8dp"
+            android:text="@string/continueBtn"/>
+
+    </LinearLayout>
+
+    <!--  BOTTOM PART: recent quizzes (via RecyclerView and item. ScrollView needed for this case  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="50">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            android:text="@string/redo_quizzes"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvQuizHistory"/>
+    </LinearLayout>
+
+</LinearLayout>

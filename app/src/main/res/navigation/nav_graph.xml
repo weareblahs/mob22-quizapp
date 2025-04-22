@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/loginFragment"
+        android:name="com.quizapp.ui.auth.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_roleSelectionFragment"
+            app:destination="@id/roleSelectionFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/roleSelectionFragment"
+        android:name="com.quizapp.ui.auth.role_selection.RoleSelectionFragment"
+        android:label="fragment_role_selection"
+        tools:layout="@layout/fragment_role_selection" >
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherDashboard"
         android:name="com.quizapp.ui.teacher.home.DashboardFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="fragment_teacher_dashboard"
+        tools:layout="@layout/fragment_teacher_dashboard" />
+    <fragment
+        android:id="@+id/studentDashboard"
+        android:name="com.quizapp.ui.student.home.DashboardFragment"
+        android:label="fragment_student_dashboard"
+        tools:layout="@layout/fragment_student_dashboard" />
 </navigation>

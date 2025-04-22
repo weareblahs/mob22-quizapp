@@ -25,10 +25,8 @@ class AuthServiceImpl(
                 authResult.user != null
             } catch (e: GetCredentialException) {
                 throw Exception("Google Sign-in failed")
-                false
             } catch (e: Exception) {
                 throw Exception("Something went wrong")
-                false
             }
         }
     }
@@ -58,7 +56,6 @@ class AuthServiceImpl(
 
         return try {
             val result = credentialManager.getCredential(context,req)
-            Log.d("debugging", result.credential.data.toString())
             result.credential.data.getString("com.google.android.libraries.identity.googleid.BUNDLE_KEY_ID_TOKEN")
 
         }catch (e:Exception){

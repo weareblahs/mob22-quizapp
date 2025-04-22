@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ui.student.quiz.result.QuizResultFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:gravity="center|center"
+        android:orientation="vertical"
+        android:layout_weight="9">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:text="@string/your_result_header"/>
+        <TextView
+            android:id="@+id/tvPoints"
+            android:layout_width="350sp"
+            android:layout_height="350sp"
+            android:text="@string/points_placeholder"
+            android:textColor="@color/white"
+            android:textSize="80sp"
+            android:textAlignment="center"
+            android:background="@drawable/points_circle"
+            android:padding="60sp"
+            android:layout_margin="20sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/tvCorrectAnswers"
+                android:text="@string/two_digit_placeholder"
+                app:drawableLeftCompat="@drawable/ic_correct_circle"
+                app:drawableTint="@color/material_dynamic_neutral0"
+                android:drawablePadding="5sp"/>
+        </LinearLayout>
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2sp"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/tvWrongAnswers"
+                android:text="@string/two_digit_placeholder"
+                app:drawableLeftCompat="@drawable/ic_wrong_circle"
+                app:drawableTint="@color/material_dynamic_neutral0"
+                android:drawablePadding="5sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center|center"
+        android:layout_weight="1">
+        <Button
+            android:layout_marginHorizontal="35sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnContinue"
+            app:cornerRadius="8dp"
+            android:text="@string/back_button_home_page"/>
+    </LinearLayout>
+</LinearLayout>
