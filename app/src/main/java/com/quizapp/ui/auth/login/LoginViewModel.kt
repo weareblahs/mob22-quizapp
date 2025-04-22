@@ -3,7 +3,7 @@ package com.quizapp.ui.auth.login
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.quizapp.core.service.AuthService
-import com.quizapp.data.repo.QuizRepo
+import com.quizapp.data.repo.UserRepo
 import com.quizapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authService: AuthService,
-    private val repo: QuizRepo
+    private val repo: UserRepo
 ): BaseViewModel() {
 
     private val _loginInfo = MutableStateFlow(LoginInfo())
