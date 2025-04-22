@@ -43,10 +43,31 @@
         android:id="@+id/teacherDashboard"
         android:name="com.quizapp.ui.teacher.home.DashboardFragment"
         android:label="fragment_teacher_dashboard"
-        tools:layout="@layout/fragment_teacher_dashboard" />
+        tools:layout="@layout/fragment_teacher_dashboard" >
+        <action
+            android:id="@+id/action_teacherDashboard_to_addQuizFragment"
+            app:destination="@id/addQuizFragment" />
+        <action
+            android:id="@+id/action_teacherDashboard_to_quizDetailFragment"
+            app:destination="@id/quizDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/studentDashboard"
         android:name="com.quizapp.ui.student.home.DashboardFragment"
         android:label="fragment_student_dashboard"
         tools:layout="@layout/fragment_student_dashboard" />
+    <fragment
+        android:id="@+id/addQuizFragment"
+        android:name="com.quizapp.ui.teacher.add_quiz.AddQuizFragment"
+        android:label="fragment_add_quiz"
+        tools:layout="@layout/fragment_add_quiz" />
+    <fragment
+        android:id="@+id/quizDetailFragment"
+        android:name="com.quizapp.ui.teacher.detail.QuizDetailFragment"
+        android:label="fragment_quiz_detail"
+        tools:layout="@layout/fragment_quiz_detail">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+    </fragment>
 </navigation>

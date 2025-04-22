@@ -3,6 +3,7 @@ package com.quizapp.ui.auth.role_selection
 import androidx.lifecycle.viewModelScope
 import com.quizapp.core.service.AuthService
 import com.quizapp.data.repo.QuizRepo
+import com.quizapp.data.repo.UserRepo
 import com.quizapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RoleSelectionViewModel @Inject constructor(
-    private val repo: QuizRepo
+    private val repo: UserRepo
 ): BaseViewModel() {
 
     fun setRole(role: String) {
