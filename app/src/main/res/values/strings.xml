@@ -44,4 +44,5 @@
     <string name="answer_2_placeholder_text">Answer 2</string>
     <string name="answer_4_placeholder_text">Answer 4</string>
     <string name="answer_3_placeholder_text">Answer 3</string>
+    <string name="quiz_name_placeholder">Quiz name</string>
 </resources>
