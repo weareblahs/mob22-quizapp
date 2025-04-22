@@ -1,4 +1,6 @@
 package com.quizapp.data.model
 
-class Option {
-}
+data class Option(
+    var text: String = "",
+    var isCorrect: Boolean = false
+)

@@ -1,4 +1,6 @@
 package com.quizapp.data.model
 
-class QuestionType {
+enum class QuestionType {
+    MULTIPLE_CHOICE,
+    TRUE_FALSE
 }
