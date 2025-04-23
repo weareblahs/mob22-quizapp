@@ -19,7 +19,11 @@ class StartQuizViewModel @Inject constructor(private val repo: StudentRepo) : Ba
         viewModelScope.launch {
             val quiz = repo.getQuiz(code)
             if (quiz != null) {
-                _quizInfo.update {it.copy(quizLoaded = true, quizName = quiz.title, quizDescription = quiz.description)}
+                _quizInfo.update {it.copy(quizId = quiz.id!!,
+                    quizLoaded = true,
+                    quizName = quiz.title,
+                    quizDescription = quiz.description,
+                    quizSize = quiz.questions.size)}
             }
         }
     }
@@ -28,5 +32,7 @@ class StartQuizViewModel @Inject constructor(private val repo: StudentRepo) : Ba
 data class QuizInfo (
     val quizName: String = "",
     val quizDescription: String = "",
-    val quizLoaded: Boolean = false
+    val quizId: String = "",
+    val quizLoaded: Boolean = false,
+    val quizSize: Int = -1
 )

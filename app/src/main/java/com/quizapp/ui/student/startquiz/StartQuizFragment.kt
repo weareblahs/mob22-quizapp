@@ -1,12 +1,14 @@
 package com.quizapp.ui.student.startquiz
 
-import androidx.fragment.app.viewModels
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,11 +21,19 @@ import kotlinx.coroutines.launch
 class StartQuizFragment : BaseFragment() {
     override val viewModel: StartQuizViewModel by viewModels()
     private lateinit var binding: FragmentStartQuizBinding
+    private var quizId: String = ""
+    private var quizSize: Int = -1
     private val args: StartQuizFragmentArgs by navArgs()
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // shared preferences initialize
+        preferences = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
+        editor = preferences.edit()
+
         binding = FragmentStartQuizBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,6 +53,19 @@ class StartQuizFragment : BaseFragment() {
             // Navigate back
             findNavController().popBackStack()
         }
+
+        binding.btnContinue.setOnClickListener {
+            editor.putString("quizId", quizId)
+            editor.putInt("totalQuestions", quizSize)
+            editor.putInt("currentQuestion", 1)
+            editor.putInt("currentPoints", 0)
+            editor.putInt("correctAnswers", 0)
+            editor.putInt("wrongAnswers", 0)
+            editor.commit()
+
+            val dir = StartQuizFragmentDirections.actionStartQuizFragmentToTakeQuizFragment(quizId, preferences.getInt("currentQuestion", -1))
+            findNavController().navigate(dir)
+        }
     }
 
     override fun setupViewModelObserver() {
@@ -53,6 +76,8 @@ class StartQuizFragment : BaseFragment() {
                 binding.loading.isVisible = !base.quizLoaded
                 binding.tvQuizName.text = base.quizName
                 binding.tvQuizDesc.text = base.quizDescription
+                quizId = base.quizId
+                quizSize = base.quizSize
             }
         }
     }

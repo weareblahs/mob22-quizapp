@@ -49,4 +49,5 @@
     <string name="start_quiz_header_begin_text">You are about to begin:</string>
     <string name="cancelBtn">Cancel</string>
     <string name="quiz_description_placeholder">Quiz description</string>
+    <string name="point_indicator">%1$s points</string>
 </resources>
