@@ -6,6 +6,8 @@ import com.quizapp.data.repo.QuestionRepo
 import com.quizapp.data.repo.QuestionRepoImpl
 import com.quizapp.data.repo.QuizRepo
 import com.quizapp.data.repo.QuizRepoImpl
+import com.quizapp.data.repo.StudentRepo
+import com.quizapp.data.repo.StudentRepoImpl
 import com.quizapp.data.repo.UserRepo
 import com.quizapp.data.repo.UserRepoImpl
 import dagger.Module
@@ -39,5 +41,11 @@ class AppModule {
     @Singleton
     fun provideQuestionRepo(authService: AuthService): QuestionRepo {
         return QuestionRepoImpl(authService = authService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStudentRepo (authService: AuthService): StudentRepo {
+        return StudentRepoImpl(authService = authService)
     }
 }
