@@ -15,6 +15,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Question"
@@ -30,12 +31,28 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextQuestion"
+                android:id="@+id/etQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="2"
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Question Type"
+            android:textColor="#1E88E5"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"/>
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/msQuestionType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Multiple Choice"
+            android:checked="true"
+            android:layout_marginTop="8dp" />
 
         <!-- Options A to D -->
         <LinearLayout
@@ -65,7 +82,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextOptionA"
+                        android:id="@+id/etOptionA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -91,7 +108,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextOptionB"
+                        android:id="@+id/etOptionB"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -117,7 +134,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextOptionC"
+                        android:id="@+id/etOptionC"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -143,7 +160,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextOptionD"
+                        android:id="@+id/etOptionD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />

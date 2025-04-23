@@ -18,19 +18,19 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewQuestions"
+        android:id="@+id/rvQuestions"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="12dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/buttonSaveAll"
+        app:layout_constraintBottom_toTopOf="@id/mbSave"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_question" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSaveAll"
+        android:id="@+id/mbSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -50,7 +50,7 @@
         android:src="@drawable/ic_add"
         android:tint="@android:color/white"
         app:backgroundTint="#1E88E5"
-        app:layout_constraintBottom_toTopOf="@id/buttonSaveAll"
+        app:layout_constraintBottom_toTopOf="@id/mbSave"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

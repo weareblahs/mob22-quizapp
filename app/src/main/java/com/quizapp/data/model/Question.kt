@@ -6,4 +6,3 @@ data class Question(
     var type: QuestionType = QuestionType.MULTIPLE_CHOICE,
     var options: List<Option> = emptyList()
 )
-
