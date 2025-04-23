@@ -28,5 +28,5 @@ class StartQuizViewModel @Inject constructor(private val repo: StudentRepo) : Ba
 data class QuizInfo (
     val quizName: String = "",
     val quizDescription: String = "",
-    val quizLoaded: Boolean = true
+    val quizLoaded: Boolean = false
 )

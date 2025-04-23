@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -49,6 +50,7 @@ class StartQuizFragment : BaseFragment() {
         lifecycleScope.launch {
             viewModel.quizInfo.collect {
                 val base = viewModel.quizInfo.value
+                binding.loading.isVisible = !base.quizLoaded
                 binding.tvQuizName.text = base.quizName
                 binding.tvQuizDesc.text = base.quizDescription
             }
