@@ -46,4 +46,7 @@
     <string name="answer_3_placeholder_text">Answer 3</string>
     <string name="quiz_name_placeholder">Quiz name</string>
     <string name="sample_six_alphanumeric_code">ABC123</string>
+    <string name="start_quiz_header_begin_text">You are about to begin:</string>
+    <string name="cancelBtn">Cancel</string>
+    <string name="quiz_description_placeholder">Quiz description</string>
 </resources>

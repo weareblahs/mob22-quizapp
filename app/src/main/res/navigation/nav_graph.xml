@@ -55,7 +55,11 @@
         android:id="@+id/studentDashboard"
         android:name="com.quizapp.ui.student.home.DashboardFragment"
         android:label="fragment_student_dashboard"
-        tools:layout="@layout/fragment_student_dashboard" />
+        tools:layout="@layout/fragment_student_dashboard" >
+        <action
+            android:id="@+id/action_studentDashboard_to_startQuizFragment"
+            app:destination="@id/startQuizFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addQuizFragment"
         android:name="com.quizapp.ui.teacher.add_quiz.AddQuizFragment"
@@ -69,5 +73,12 @@
         <argument
             android:name="quizId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/startQuizFragment"
+        android:name="com.quizapp.ui.student.startquiz.StartQuizFragment"
+        android:label="fragment_start_quiz"
+        tools:layout="@layout/fragment_start_quiz" >
+        <argument android:name="code" app:argType="string" app:nullable="false"/>
     </fragment>
 </navigation>

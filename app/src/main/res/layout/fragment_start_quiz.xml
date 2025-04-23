@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".ui.student.startquiz.StartQuizFragment">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:text="@string/start_quiz_header_begin_text" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:text="@string/quiz_name_placeholder" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:text="@string/quiz_description_placeholder" />
+
+    <Button
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginTop="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnContinue"
+        app:cornerRadius="8dp"
+        android:text="@string/continueBtn"/>
+
+    <Button
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginTop="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCancel"
+        android:backgroundTint="@color/red"
+        app:cornerRadius="8dp"
+        android:text="@string/cancelBtn"/>
+
+</LinearLayout>

@@ -16,7 +16,6 @@ class StartQuizViewModel @Inject constructor(private val repo: StudentRepo) : Ba
     private val _quizInfo = MutableStateFlow(QuizInfo())
     val quizInfo = _quizInfo.asStateFlow()
 
-
     fun loadQuiz(code: String) {
         viewModelScope.launch {
             val quiz = repo.getQuiz(code)
