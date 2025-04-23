@@ -32,7 +32,7 @@
             android:background="@drawable/textbox"
             android:textSize="36sp"
             android:padding="12sp"
-            android:hint="@string/sample_six_digit_code"/>
+            android:hint="@string/sample_six_alphanumeric_code"/>
 
         <Button
             android:layout_marginHorizontal="50sp"

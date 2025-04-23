@@ -45,4 +45,5 @@
     <string name="answer_4_placeholder_text">Answer 4</string>
     <string name="answer_3_placeholder_text">Answer 3</string>
     <string name="quiz_name_placeholder">Quiz name</string>
+    <string name="sample_six_alphanumeric_code">ABC123</string>
 </resources>
