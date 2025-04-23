@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,10 @@ import com.quizapp.R
 import com.quizapp.databinding.FragmentManualAddQuizBinding
 import com.quizapp.ui.base.BaseFragment
 import com.quizapp.ui.teacher.adapters.QuestionAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ManualAddQuizFragment : BaseFragment() {
     private lateinit var binding: FragmentManualAddQuizBinding
     private val args: ManualAddQuizFragmentArgs by navArgs()
@@ -35,7 +39,7 @@ class ManualAddQuizFragment : BaseFragment() {
         viewModel.setQuizInfo(args.title, args.desc)
 
         setupToolbar()
-        setupRecyclerView()
+        setupAdapter()
         setupButtons()
 //        setupObservers()
     }
@@ -52,8 +56,26 @@ class ManualAddQuizFragment : BaseFragment() {
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupAdapter() {
         questionAdapter = QuestionAdapter(emptyList())
+        questionAdapter.listener = object : QuestionAdapter.Listener {
+            override fun onQuestionTextChanged(position: Int, text: String) {
+                viewModel.updateQuestionText(position, text)
+            }
+
+            override fun onOptionTextChanged(questionPosition: Int, optionPosition: Int, text: String) {
+                viewModel.updateOptionText(questionPosition, optionPosition, text)
+            }
+
+            override fun onCorrectOptionSelected(questionPosition: Int, optionPosition: Int) {
+                viewModel.setCorrectOption(questionPosition, optionPosition)
+            }
+
+            override fun onQuestionTypeChanged(position: Int, isMultipleChoice: Boolean) {
+                viewModel.updateQuestionType(position, isMultipleChoice)
+            }
+
+        }
         binding.rvQuestions.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = questionAdapter
@@ -67,15 +89,23 @@ class ManualAddQuizFragment : BaseFragment() {
         }
 
         binding.mbSave.setOnClickListener {
-//            saveQuiz()
+            viewModel.createQuiz()
         }
     }
 
     private fun setupObservers() {
-        viewModel.questions.observe(viewLifecycleOwner) { questions ->
-            questionAdapter.updateQuestions(questions)
-            if (questions.isNotEmpty()) {
-                binding.rvQuestions.smoothScrollToPosition(questions.size - 1)
+        lifecycleScope.launch {
+            viewModel.questions.collect { questions ->
+                Log.d("debugging", "setupObservers: $questions")
+                questionAdapter.updateQuestions(questions)
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.success.collect{
+                Log.d("debugging", "setupObservers: $it")
+                val action = ManualAddQuizFragmentDirections.actionManualAddQuizFragmentToAddQuizSuccessFragment()
+                findNavController().navigate(action)
+
             }
         }
     }

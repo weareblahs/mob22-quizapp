@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.quizapp.R
 import com.quizapp.databinding.FragmentAddQuizBinding
 import com.quizapp.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddQuizFragment : BaseFragment() {
     private lateinit var binding: FragmentAddQuizBinding
     override val viewModel: AddQuizViewModel by viewModels()

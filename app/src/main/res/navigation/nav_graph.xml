@@ -64,9 +64,6 @@
         <action
             android:id="@+id/action_addQuizFragment_to_manualAddQuizFragment"
             app:destination="@id/manualAddQuizFragment" />
-        <action
-            android:id="@+id/action_addQuizFragment_to_quizResultFragment"
-            app:destination="@id/quizResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizDetailFragment"
@@ -81,19 +78,20 @@
         android:id="@+id/manualAddQuizFragment"
         android:name="com.quizapp.ui.teacher.add_quiz.manual.ManualAddQuizFragment"
         android:label="ManualAddQuizFragment" >
-        <action
-            android:id="@+id/action_manualAddQuizFragment_to_quizResultFragment"
-            app:destination="@id/quizResultFragment" />
         <argument
             android:name="title"
             app:argType="string" />
         <argument
             android:name="desc"
             app:argType="string" />
+        <action
+            android:id="@+id/action_manualAddQuizFragment_to_addQuizSuccessFragment"
+            app:destination="@id/addQuizSuccessFragment" />
     </fragment>
     <fragment
-        android:id="@+id/quizResultFragment"
-        android:name="com.quizapp.ui.student.quiz.result.QuizResultFragment"
-        android:label="fragment_quiz_result"
-        tools:layout="@layout/fragment_quiz_result" />
+        android:id="@+id/addQuizSuccessFragment"
+        android:name="com.quizapp.ui.teacher.add_quiz.success.AddQuizSuccessFragment"
+        android:label="fragment_add_quiz_success"
+        tools:layout="@layout/fragment_add_quiz_success" />
+
 </navigation>
