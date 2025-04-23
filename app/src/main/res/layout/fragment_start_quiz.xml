@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="50sp"
+        android:id="@+id/tvQuizName"
         android:textStyle="bold"
         android:text="@string/quiz_name_placeholder" />
 
@@ -28,6 +29,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:id="@+id/tvQuizDesc"
         android:text="@string/quiz_description_placeholder" />
 
     <Button

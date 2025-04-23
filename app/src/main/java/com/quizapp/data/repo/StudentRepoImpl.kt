@@ -18,6 +18,7 @@ class StudentRepoImpl @Inject constructor (private val authService: AuthService)
 
     override suspend fun getQuiz(code: String): Quiz? {
         // extra checks if the app is signed in
+        if(code.isBlank()) return null
         Log.d("debugging", code)
         val snapshot = getQuizRef().document(code).get().await()
         return snapshot.toObject(Quiz::class.java)?.copy(id = snapshot.id)

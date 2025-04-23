@@ -1,6 +1,5 @@
 package com.quizapp.ui.student.startquiz
 
-
 import androidx.lifecycle.viewModelScope
 import com.quizapp.data.repo.StudentRepo
 import com.quizapp.ui.base.BaseViewModel
@@ -20,14 +19,14 @@ class StartQuizViewModel @Inject constructor(private val repo: StudentRepo) : Ba
         viewModelScope.launch {
             val quiz = repo.getQuiz(code)
             if (quiz != null) {
-                _quizInfo.update {it.copy(quizName = quiz.title, quizDescription = quiz.description)}
+                _quizInfo.update {it.copy(quizLoaded = true, quizName = quiz.title, quizDescription = quiz.description)}
             }
-
         }
     }
 }
 
 data class QuizInfo (
     val quizName: String = "",
-    val quizDescription: String = ""
+    val quizDescription: String = "",
+    val quizLoaded: Boolean = true
 )
