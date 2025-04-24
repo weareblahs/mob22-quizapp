@@ -1,25 +1,30 @@
 package com.quizapp.ui.student.home
 
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.quizapp.core.service.AuthService
 import com.quizapp.data.model.Quiz
 import com.quizapp.data.repo.StudentRepo
 import com.quizapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(private val repo: StudentRepo) : BaseViewModel() {
+class DashboardViewModel @Inject constructor(private val authService: AuthService, private val repo: StudentRepo) : BaseViewModel() {
     private val _quizInfo = MutableStateFlow(Quiz())
     val quizInfo = _quizInfo.asStateFlow()
     private val _shouldNavigate = MutableStateFlow(false)
     val shouldNavigate = _shouldNavigate.asStateFlow()
-    val _errorMsg = MutableStateFlow("")
+    private val _errorMsg = MutableStateFlow("")
     val errorMsg = _errorMsg.asStateFlow()
+    private val _logout = MutableStateFlow(false)
+    val logout = _logout.asStateFlow()
     fun checkQuiz(code: String) {
         viewModelScope.launch {
             try {
@@ -46,5 +51,16 @@ class DashboardViewModel @Inject constructor(private val repo: StudentRepo) : Ba
 
     fun resetNavigationFlag() {
         _shouldNavigate.value = false
+    }
+
+    fun getProfileUrl(): Uri? {
+        return authService.getLoggedInUser()?.photoUrl
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            authService.logout()
+            _logout.update {true}
+        }
     }
 }

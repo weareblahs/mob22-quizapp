@@ -9,6 +9,20 @@
     <!--  TOP PART: enter quiz code to join  -->
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10sp"
+        android:paddingHorizontal="20sp"
+        android:orientation="vertical">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_gravity="end"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            android:padding="4sp"
+            android:id="@+id/profilePicture"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
         android:orientation="vertical"

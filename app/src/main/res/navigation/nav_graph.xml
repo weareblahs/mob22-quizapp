@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_studentDashboard_to_startQuizFragment"
             app:destination="@id/startQuizFragment" />
+        <action
+            android:id="@+id/action_studentDashboard_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/addQuizFragment"
