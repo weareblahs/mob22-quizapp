@@ -67,8 +67,32 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:gravity="center|center"
-        android:layout_weight="1">
+        android:gravity="center|bottom"
+        android:layout_marginBottom="20sp"
+        android:layout_weight="3">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvQuizSaved"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20sp"
+            android:layout_margin="12sp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12sp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="32sp"
+                    android:text="@string/quiz_saved_successfully"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/quiz_history_description_result_page"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
         <Button
             android:layout_marginHorizontal="35sp"
             android:layout_width="match_parent"

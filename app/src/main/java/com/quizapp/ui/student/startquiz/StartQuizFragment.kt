@@ -79,6 +79,10 @@ class StartQuizFragment : BaseFragment() {
                 binding.tvQuizDesc.text = base.quizDescription
                 quizId = base.quizId
                 quizSize = base.quizSize
+
+                // quiz name for saving usage
+                editor.putString("quizName", base.quizName)
+                editor.commit()
             }
         }
     }

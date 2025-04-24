@@ -1,19 +1,22 @@
 package com.quizapp.ui.student.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.quizapp.R
 import com.quizapp.data.model.Quiz
+import com.quizapp.data.model.QuizHistory
 import com.quizapp.databinding.FragmentStudentDashboardBinding
 import com.quizapp.ui.base.BaseFragment
+import com.quizapp.ui.student.adapters.QuizHistoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -21,7 +24,7 @@ import kotlinx.coroutines.launch
 class DashboardFragment : BaseFragment() {
     override val viewModel: DashboardViewModel by viewModels()
     private lateinit var binding: FragmentStudentDashboardBinding
-
+    private lateinit var quizHistoryAdapter: QuizHistoryAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +35,8 @@ class DashboardFragment : BaseFragment() {
 
     override fun setupUiComponents(view: View) {
         super.setupUiComponents(view)
+
+        setupAdapter()
 
         parentFragmentManager.setFragmentResultListener("requests", viewLifecycleOwner) { _, bundle ->
             val shouldReset = bundle.getBoolean("should_reset", false)
@@ -68,12 +73,9 @@ class DashboardFragment : BaseFragment() {
             viewModel.shouldNavigate.collect {
                 val base = viewModel.quizInfo.value
                 if(base != Quiz() && viewModel.shouldNavigate.value) {
-                    Log.d("debugging", "valid quiz")
                     val dir = DashboardFragmentDirections.actionStudentDashboardToStartQuizFragment(binding.etCodeInput.text.toString())
                     findNavController().navigate(dir)
                     viewModel.resetNavigationFlag()
-                } else {
-                    Log.d("debugging", "invalid quiz")
                 }
             }
         }
@@ -90,6 +92,16 @@ class DashboardFragment : BaseFragment() {
                 }
             }
         }
+        lifecycleScope.launch {
+            viewModel.quizHistory.collect { quiz ->
+                quizHistoryAdapter.setQuizHistory(quiz)
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.quizHistory.collect {
+                binding.llNoQuiz.isVisible = viewModel.quizHistory.value.isEmpty()
+            }
+        }
     }
 
 
@@ -100,5 +112,18 @@ class DashboardFragment : BaseFragment() {
 
     private fun logout() {
         viewModel.logout()
+    }
+
+    private fun setupAdapter() {
+        quizHistoryAdapter = QuizHistoryAdapter(emptyList())
+        binding.rvQuizHistory.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvQuizHistory.adapter = quizHistoryAdapter
+        quizHistoryAdapter.listener = object : QuizHistoryAdapter.Listener {
+            override fun onItemClick(quiz: QuizHistory) {
+                // go to quiz on tap
+                val dir = DashboardFragmentDirections.actionStudentDashboardToStartQuizFragment(quiz.code!!)
+                findNavController().navigate(dir)
+            }
+        }
     }
 }

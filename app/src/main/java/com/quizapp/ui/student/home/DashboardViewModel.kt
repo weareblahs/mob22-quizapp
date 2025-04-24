@@ -6,9 +6,11 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.quizapp.core.service.AuthService
 import com.quizapp.data.model.Quiz
+import com.quizapp.data.model.QuizHistory
 import com.quizapp.data.repo.StudentRepo
 import com.quizapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -25,6 +27,13 @@ class DashboardViewModel @Inject constructor(private val authService: AuthServic
     val errorMsg = _errorMsg.asStateFlow()
     private val _logout = MutableStateFlow(false)
     val logout = _logout.asStateFlow()
+    private val _quizHistory = MutableStateFlow<List<QuizHistory>>(emptyList())
+    val quizHistory = _quizHistory.asStateFlow()
+
+    init {
+        getQuizzes()
+    }
+
     fun checkQuiz(code: String) {
         viewModelScope.launch {
             try {
@@ -33,7 +42,6 @@ class DashboardViewModel @Inject constructor(private val authService: AuthServic
                     _quizInfo.value = quiz
                     _shouldNavigate.value = true
                 } else {
-                    Log.d("debugging", "invalid quiz from viewmodel")
                     _errorMsg.value = "Invalid quiz code. Please check if the quiz ID is correct, or check your Internet connection."
                     _errorMsg.value = ""
                 }
@@ -61,6 +69,16 @@ class DashboardViewModel @Inject constructor(private val authService: AuthServic
         viewModelScope.launch {
             authService.logout()
             _logout.update {true}
+        }
+    }
+
+    private fun getQuizzes() {
+        viewModelScope.launch(Dispatchers.IO) {
+            errorHandler {
+                repo.getHistory().collect(){
+                    _quizHistory.value = it
+                }
+            }
         }
     }
 }

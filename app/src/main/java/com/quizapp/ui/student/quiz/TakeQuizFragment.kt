@@ -88,7 +88,7 @@ class TakeQuizFragment : BaseFragment() {
             editor.putInt("currentPoints", currentPoints + 10)
             editor.putInt("correctAnswers", correctAnswers + 1)
             // shows information about current points instead of a placeholder
-            binding.correctAnswerDescText.text = getString(R.string.add_point_text, currentPoints.toString())
+            binding.correctAnswerDescText.text = getString(R.string.add_point_text)
         } else {
             // wrong answer handler. shows "the correct answer is ANSWER", replacing the correctAnswerText placeholder
             editor.putInt("wrongAnswers", wrongAnswers + 1)
@@ -96,7 +96,8 @@ class TakeQuizFragment : BaseFragment() {
                 getString(R.string.student_correct_answer_description_display, ca)
         }
         // GLOBAL: correct / wrong
-        // disable all answer bindings first
+        // disable all answer on click listeners first so users are unable to press selections and
+        // only continue can be pressed to either proceed to the next question or results
             binding.run {
                 val answerViews = arrayOf(cvAnswer1, cvAnswer2, cvAnswer3, cvAnswer4)
                 answerViews.forEach { it.setOnClickListener {} }
