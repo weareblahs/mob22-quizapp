@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TakeQuizViewModel @Inject constructor(private val repo: StudentRepo) : BaseViewModel() {
-    val _question = MutableStateFlow<Question>(Question())
+    private val _question = MutableStateFlow<Question>(Question())
     val question = _question.asStateFlow()
 
     fun retrieveQuestion(quizId: String, question: Int) {

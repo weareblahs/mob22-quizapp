@@ -55,6 +55,7 @@ class StartQuizFragment : BaseFragment() {
         }
 
         binding.btnContinue.setOnClickListener {
+            // initialize LocalPreference values
             editor.putString("quizId", quizId)
             editor.putInt("totalQuestions", quizSize)
             editor.putInt("currentQuestion", 1)

@@ -1,7 +1,6 @@
 package com.quizapp.ui.auth.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +55,6 @@ class LoginFragment : Fragment() {
     // will redirect back to the dashboard fragment everytime
     override fun onResume() {
         super.onResume()
-        Log.d("debugging", "isResumedFromBackStack: ${isResumedFromBackStack}, hasBeenCreated: ${hasBeenCreated}")
         if (hasBeenCreated && isResumedFromBackStack) {
             requireActivity().finish()
         }

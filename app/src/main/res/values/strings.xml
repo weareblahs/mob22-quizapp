@@ -50,4 +50,8 @@
     <string name="cancelBtn">Cancel</string>
     <string name="quiz_description_placeholder">Quiz description</string>
     <string name="point_indicator">%1$s points</string>
+    <string name="wrong_answer_header_text">You\'re wrong!</string>
+    <string name="correct_answer_placeholder">Correct answer placeholder</string>
+    <string name="correct_answer_header_text">You\'re correct!</string>
+    <string name="student_correct_answer_description_display">The correct answer is %1$s</string>
 </resources>

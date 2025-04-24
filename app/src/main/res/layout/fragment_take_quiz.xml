@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0 points"
+                android:text="@string/points_placeholder"
                 android:id="@+id/tvPoints"
                 android:textSize="24sp"
                 android:textAlignment="textEnd"/>
@@ -121,7 +121,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
                 android:layout_weight="1"/>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/wrongAnswer"
+                android:background="@color/md_theme_errorContainer_mediumContrast"
+                android:padding="16sp"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <TextView
+                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wrong_answer_header_text"/>
+                <TextView
+                    android:textSize="20sp"
+                    android:id="@+id/correctAnswerText"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct_answer_placeholder"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/correctAnswer"
+                android:background="@color/green"
+                android:padding="16sp"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <TextView
+                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct_answer_header_text"/>
+                <TextView
+                    android:textSize="20sp"
+                    android:id="@+id/correctAnswerDescText"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct_answer_placeholder"/>
+            </LinearLayout>
             <Button
                 android:layout_marginHorizontal="8sp"
                 android:layout_marginTop="16sp"
