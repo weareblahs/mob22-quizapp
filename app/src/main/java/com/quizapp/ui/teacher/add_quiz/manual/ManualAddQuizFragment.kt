@@ -2,16 +2,15 @@ package com.quizapp.ui.teacher.add_quiz.manual
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.quizapp.R
 import com.quizapp.databinding.FragmentManualAddQuizBinding
 import com.quizapp.ui.base.BaseFragment
 import com.quizapp.ui.teacher.adapters.QuestionAdapter
@@ -28,7 +27,7 @@ class ManualAddQuizFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentManualAddQuizBinding.inflate(inflater, container, false)
         return binding.root
@@ -41,14 +40,12 @@ class ManualAddQuizFragment : BaseFragment() {
         setupToolbar()
         setupAdapter()
         setupButtons()
-//        setupObservers()
     }
 
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
         setupObservers()
     }
-
 
     private fun setupToolbar() {
         binding.toolbar.setNavigationOnClickListener {
@@ -63,25 +60,27 @@ class ManualAddQuizFragment : BaseFragment() {
                 viewModel.updateQuestionText(position, text)
             }
 
-            override fun onOptionTextChanged(questionPosition: Int, optionPosition: Int, text: String) {
+            override fun onOptionTextChanged(
+                questionPosition: Int,
+                optionPosition: Int,
+                text: String
+            ) {
                 viewModel.updateOptionText(questionPosition, optionPosition, text)
             }
 
-            override fun onCorrectOptionSelected(questionPosition: Int, optionPosition: Int) {
-                viewModel.setCorrectOption(questionPosition, optionPosition)
+            override fun onCorrectOptionChanged(
+                questionPosition: Int,
+                optionPosition: Int,
+                isChecked: Boolean
+            ) {
+                viewModel.onCorrectOptionChanged(questionPosition, optionPosition, isChecked)
             }
-
-            override fun onQuestionTypeChanged(position: Int, isMultipleChoice: Boolean) {
-                viewModel.updateQuestionType(position, isMultipleChoice)
-            }
-
         }
         binding.rvQuestions.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = questionAdapter
         }
     }
-
 
     private fun setupButtons() {
         binding.fabAddQuestion.setOnClickListener {
@@ -100,14 +99,23 @@ class ManualAddQuizFragment : BaseFragment() {
                 questionAdapter.updateQuestions(questions)
             }
         }
-        lifecycleScope.launch {
-            viewModel.success.collect{
-                Log.d("debugging", "setupObservers: $it")
-                val action = ManualAddQuizFragmentDirections.actionManualAddQuizFragmentToAddQuizSuccessFragment()
-                findNavController().navigate(action)
 
+        lifecycleScope.launch {
+            viewModel.success.collect {
+                val quizId = viewModel.quizId.value
+                Log.d("debugging", "setupObservers: $quizId")
+                val action =
+                    ManualAddQuizFragmentDirections.actionManualAddQuizFragmentToAddQuizSuccessFragment(
+                        quizId
+                    )
+                findNavController().navigate(action)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.validationError.collect { errorMessage ->
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
             }
         }
     }
-
 }

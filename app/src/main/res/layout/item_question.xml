@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Enter your question"
+            android:hint="Enter your question *"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -41,18 +41,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Question Type"
+            android:text="Select one correct answer"
             android:textColor="#1E88E5"
             android:textStyle="bold"
             android:layout_marginTop="12dp"/>
-
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/msQuestionType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Multiple Choice"
-            android:checked="true"
-            android:layout_marginTop="8dp" />
 
         <!-- Options A to D -->
         <LinearLayout
@@ -61,7 +53,7 @@
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
-            <!-- Repeat this block for A to D -->
+            <!-- Option A -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,13 +64,15 @@
                     android:id="@+id/checkBoxOptionA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#1E88E5" />
+                    android:buttonTint="#1E88E5"
+                    android:focusable="false"
+                    android:clickable="true" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:hint="Option A"
+                    android:hint="Option A *"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -88,6 +82,8 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <!-- Option B -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,13 +94,15 @@
                     android:id="@+id/checkBoxOptionB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#1E88E5" />
+                    android:buttonTint="#1E88E5"
+                    android:focusable="false"
+                    android:clickable="true" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:hint="Option B"
+                    android:hint="Option B *"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -114,6 +112,8 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <!-- Option C -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,13 +124,15 @@
                     android:id="@+id/checkBoxOptionC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#1E88E5" />
+                    android:buttonTint="#1E88E5"
+                    android:focusable="false"
+                    android:clickable="true" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:hint="Option C"
+                    android:hint="Option C *"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -140,6 +142,8 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <!-- Option D -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,13 +154,15 @@
                     android:id="@+id/checkBoxOptionD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#1E88E5" />
+                    android:buttonTint="#1E88E5"
+                    android:focusable="false"
+                    android:clickable="true" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:hint="Option D"
+                    android:hint="Option D *"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -166,10 +172,6 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
-            <!-- Add similar blocks for B, C, D -->
-
         </LinearLayout>
-
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

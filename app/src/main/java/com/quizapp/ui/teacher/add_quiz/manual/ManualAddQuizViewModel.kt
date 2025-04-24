@@ -1,11 +1,8 @@
 package com.quizapp.ui.teacher.add_quiz.manual
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.quizapp.data.model.Option
 import com.quizapp.data.model.Question
-import com.quizapp.data.model.QuestionType
 import com.quizapp.data.model.Quiz
 import com.quizapp.data.repo.QuizRepo
 import com.quizapp.ui.base.BaseViewModel
@@ -13,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -29,6 +25,12 @@ class ManualAddQuizViewModel @Inject constructor(
     private val _success = MutableSharedFlow<Unit>()
     val success = _success.asSharedFlow()
 
+    private val _quizId = MutableStateFlow<String>("")
+    val quizId = _quizId.asStateFlow()
+
+    private val _validationError = MutableSharedFlow<String>()
+    val validationError = _validationError.asSharedFlow()
+
     private var quizTitle: String = ""
     private var quizDescription: String = ""
 
@@ -43,7 +45,6 @@ class ManualAddQuizViewModel @Inject constructor(
             updated.add(
                 Question(
                     text = "",
-                    type = QuestionType.MULTIPLE_CHOICE,
                     options = listOf(
                         Option(text = "", isCorrect = true),
                         Option(text = "", isCorrect = false),
@@ -55,6 +56,7 @@ class ManualAddQuizViewModel @Inject constructor(
             _questions.value = updated
         }
     }
+
     fun updateQuestion(position: Int, question: Question) {
         viewModelScope.launch(Dispatchers.IO) {
             errorHandler {
@@ -73,19 +75,6 @@ class ManualAddQuizViewModel @Inject constructor(
                 val updated = _questions.value.toMutableList()
                 if (position in updated.indices) {
                     updated.removeAt(position)
-                    _questions.value = updated
-                }
-            }
-        }
-    }
-
-    fun updateQuestionType(position: Int, isMultipleChoice: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            errorHandler {
-                val updated = _questions.value.toMutableList()
-                if (position in updated.indices) {
-                    val questionType = if (isMultipleChoice) QuestionType.MULTIPLE_CHOICE else QuestionType.SINGLE_CHOICE
-                    updated[position] = updated[position].copy(type = questionType)
                     _questions.value = updated
                 }
             }
@@ -122,16 +111,41 @@ class ManualAddQuizViewModel @Inject constructor(
         }
     }
 
+    fun onCorrectOptionChanged(questionPosition: Int, optionPosition: Int, isChecked: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            errorHandler {
+                val updated = _questions.value.toMutableList()
+                if (questionPosition in updated.indices) {
+                    val question = updated[questionPosition]
+                    val options = question.options.toMutableList()
+
+                    if (optionPosition in options.indices) {
+                        // For single choice questions, ensure only one option is selected
+                        for (i in options.indices) {
+                            options[i] = options[i].copy(isCorrect = i == optionPosition && isChecked)
+                        }
+
+                        updated[questionPosition] = question.copy(options = options)
+                        _questions.value = updated
+                    }
+                }
+            }
+        }
+    }
+
     fun setCorrectOption(questionPosition: Int, correctOptionPosition: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             errorHandler {
                 val updated = _questions.value.toMutableList()
                 if (questionPosition in updated.indices) {
                     val question = updated[questionPosition]
+
+                    // Set only this option as correct
                     val newOptions = question.options.mapIndexed { index, option ->
                         option.copy(isCorrect = index == correctOptionPosition)
                     }
                     updated[questionPosition] = question.copy(options = newOptions)
+
                     _questions.value = updated
                 }
             }
@@ -141,17 +155,43 @@ class ManualAddQuizViewModel @Inject constructor(
     fun createQuiz() {
         viewModelScope.launch(Dispatchers.IO) {
             errorHandler {
+                // Validate questions
+                if (_questions.value.isEmpty()) {
+                    _validationError.emit("Please add at least one question")
+                    return@errorHandler
+                }
+
+                for ((index, question) in _questions.value.withIndex()) {
+                    // Validate question text
+                    if (question.text.isBlank()) {
+                        _validationError.emit("Question ${index + 1} is empty")
+                        return@errorHandler
+                    }
+
+                    // Validate options
+                    for ((optIndex, option) in question.options.withIndex()) {
+                        if (option.text.isBlank()) {
+                            _validationError.emit("Option ${optIndex + 1} in Question ${index + 1} is empty")
+                            return@errorHandler
+                        }
+                    }
+
+                    // Validate if exactly one correct answer is selected
+                    if (question.options.count { it.isCorrect } != 1) {
+                        _validationError.emit("Please select exactly one correct answer for Question ${index + 1}")
+                        return@errorHandler
+                    }
+                }
+
                 val quiz = Quiz(
                     title = quizTitle,
                     description = quizDescription,
                     questions = _questions.value
                 )
-                 repo.addQuiz(quiz)
-
-            }?.let {
-                if (it) _success.emit(Unit)
+                val quizId = repo.addQuiz(quiz)
+                _quizId.value = quizId
+                _success.emit(Unit)
             }
         }
     }
-
 }

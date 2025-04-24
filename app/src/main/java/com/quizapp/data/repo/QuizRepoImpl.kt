@@ -59,15 +59,15 @@ class QuizRepoImpl @Inject constructor (val authService: AuthService): QuizRepo 
         }
     }
 
-    override suspend fun addQuiz(quiz: Quiz): Boolean {
-        if (uid == null) return false
+    override suspend fun addQuiz(quiz: Quiz): String {
+        if (uid == null) return ""
 
         val id = generateUnique6DigitId()
 
         val docRef = getQuizCollection().document(id)
         val quizCopy = quiz.copy(id = id, createdBy = uid)
         docRef.set(quizCopy).await()
-        return true
+        return id
     }
 
     private suspend fun generateUnique6DigitId(): String {

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.quizapp.data.model.Question
-import com.quizapp.data.model.QuestionType
 import com.quizapp.databinding.ItemQuestionBinding
 
 class QuestionAdapter(
@@ -13,6 +12,16 @@ class QuestionAdapter(
 ) : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
     var listener: Listener? = null
+
+    // Set stable IDs to improve performance
+    init {
+        setHasStableIds(true)
+    }
+
+    // Override getItemId to return a stable ID for each item
+    override fun getItemId(position: Int): Long {
+        return questions[position].id?.toLongOrNull() ?: position.toLong()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,6 +35,11 @@ class QuestionAdapter(
 
     override fun getItemCount(): Int = questions.size
 
+    override fun onViewRecycled(holder: QuestionViewHolder) {
+        super.onViewRecycled(holder)
+        holder.itemView.clearFocus()
+    }
+
     fun updateQuestions(newQuestions: List<Question>) {
         this.questions = newQuestions
         notifyDataSetChanged()
@@ -37,90 +51,84 @@ class QuestionAdapter(
         fun bind(question: Question) = with(binding) {
             tvTitle.text = "Question ${adapterPosition + 1}"
 
-            // Setup question type switch
-            msQuestionType.apply {
-                isChecked = question.type == QuestionType.MULTIPLE_CHOICE
-                text = if (isChecked) "Multiple Choice" else "Single Choice"
-
-                setOnCheckedChangeListener { _, isChecked ->
-                    val isNowSingle = !isChecked
-                    text = if (isChecked) "Multiple Choice" else "Single Choice"
-                    listener?.onQuestionTypeChanged(position, isChecked)
-
-                    if (isNowSingle) {
-                        // Keep only the first checked checkbox
-                        val checkBoxes = getCheckBoxes()
-                        var firstFound = false
-                        checkBoxes.forEach { checkBox ->
-                            if (checkBox.isChecked) {
-                                if (!firstFound) {
-                                    firstFound = true
-                                } else {
-                                    checkBox.isChecked = false
-                                }
-                            }
-                        }
-                    }
-
-                    setupCheckBoxListeners(position, isNowSingle)
-                }
+            // Update question text only if it’s different
+            if (etQuestion.text.toString() != question.text) {
+                etQuestion.setText(question.text)
             }
 
-            // Set question text change listener
             etQuestion.setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
-                    listener?.onQuestionTextChanged(position, etQuestion.text.toString())
+                    listener?.onQuestionTextChanged(adapterPosition, etQuestion.text.toString())
                 }
             }
 
-            // Populate option texts and checkboxes
-            if (question.options.isNotEmpty()) {
-                etOptionA.setText(question.options.getOrNull(0)?.text ?: "")
-                checkBoxOptionA.isChecked = question.options.getOrNull(0)?.isCorrect ?: false
-
-                etOptionB.setText(question.options.getOrNull(1)?.text ?: "")
-                checkBoxOptionB.isChecked = question.options.getOrNull(1)?.isCorrect ?: false
-
-                etOptionC.setText(question.options.getOrNull(2)?.text ?: "")
-                checkBoxOptionC.isChecked = question.options.getOrNull(2)?.isCorrect ?: false
-
-                etOptionD.setText(question.options.getOrNull(3)?.text ?: "")
-                checkBoxOptionD.isChecked = question.options.getOrNull(3)?.isCorrect ?: false
+            // Set options text and checkbox states
+            question.options.getOrNull(0)?.let {
+                if (etOptionA.text.toString() != it.text) etOptionA.setText(it.text)
+                checkBoxOptionA.isChecked = it.isCorrect
             }
 
-            // Set option text listeners
+            question.options.getOrNull(1)?.let {
+                if (etOptionB.text.toString() != it.text) etOptionB.setText(it.text)
+                checkBoxOptionB.isChecked = it.isCorrect
+            }
+
+            question.options.getOrNull(2)?.let {
+                if (etOptionC.text.toString() != it.text) etOptionC.setText(it.text)
+                checkBoxOptionC.isChecked = it.isCorrect
+            }
+
+            question.options.getOrNull(3)?.let {
+                if (etOptionD.text.toString() != it.text) etOptionD.setText(it.text)
+                checkBoxOptionD.isChecked = it.isCorrect
+            }
+
+            // Option text change listeners
             etOptionA.setOnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) listener?.onOptionTextChanged(position, 0, etOptionA.text.toString())
+                if (!hasFocus) listener?.onOptionTextChanged(adapterPosition, 0, etOptionA.text.toString())
             }
             etOptionB.setOnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) listener?.onOptionTextChanged(position, 1, etOptionB.text.toString())
+                if (!hasFocus) listener?.onOptionTextChanged(adapterPosition, 1, etOptionB.text.toString())
             }
             etOptionC.setOnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) listener?.onOptionTextChanged(position, 2, etOptionC.text.toString())
+                if (!hasFocus) listener?.onOptionTextChanged(adapterPosition, 2, etOptionC.text.toString())
             }
             etOptionD.setOnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) listener?.onOptionTextChanged(position, 3, etOptionD.text.toString())
+                if (!hasFocus) listener?.onOptionTextChanged(adapterPosition, 3, etOptionD.text.toString())
             }
 
-            setupCheckBoxListeners(position, question.type != QuestionType.MULTIPLE_CHOICE)
+            // Prevent checkbox from stealing focus
+            listOf(checkBoxOptionA, checkBoxOptionB, checkBoxOptionC, checkBoxOptionD).forEach {
+                it.isFocusable = false
+                it.isFocusableInTouchMode = false
+            }
+
+            // Set up checkbox logic
+            setupCheckBoxListeners(adapterPosition)
         }
 
-        private fun setupCheckBoxListeners(position: Int, isSingleChoice: Boolean) {
+        private fun setupCheckBoxListeners(position: Int) {
             val checkBoxes = getCheckBoxes()
+
+            // Remove old listeners
+            checkBoxes.forEach { it.setOnCheckedChangeListener(null) }
 
             checkBoxes.forEachIndexed { index, checkBox ->
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
-                        listener?.onCorrectOptionSelected(position, index)
-
-                        if (isSingleChoice) {
-                            checkBoxes.forEachIndexed { otherIndex, otherCheckBox ->
-                                if (otherIndex != index && otherCheckBox.isChecked) {
-                                    otherCheckBox.isChecked = false
-                                }
-                            }
+                        // Single-choice logic: uncheck others
+                        checkBoxes.forEachIndexed { i, cb ->
+                            if (i != index) cb.isChecked = false
+                        }
+                    } else {
+                        // Prevent all checkboxes from being unchecked
+                        if (checkBoxes.none { it.isChecked }) {
+                            checkBox.isChecked = true
+                            return@setOnCheckedChangeListener
                         }
                     }
+
+                    listener?.onCorrectOptionChanged(position, index, isChecked)
                 }
             }
         }
@@ -136,7 +144,6 @@ class QuestionAdapter(
     interface Listener {
         fun onQuestionTextChanged(position: Int, text: String)
         fun onOptionTextChanged(questionPosition: Int, optionPosition: Int, text: String)
-        fun onCorrectOptionSelected(questionPosition: Int, optionPosition: Int)
-        fun onQuestionTypeChanged(position: Int, isMultipleChoice: Boolean)
+        fun onCorrectOptionChanged(questionPosition: Int, optionPosition: Int, isChecked: Boolean)
     }
 }

@@ -92,6 +92,13 @@
         android:id="@+id/addQuizSuccessFragment"
         android:name="com.quizapp.ui.teacher.add_quiz.success.AddQuizSuccessFragment"
         android:label="fragment_add_quiz_success"
-        tools:layout="@layout/fragment_add_quiz_success" />
+        tools:layout="@layout/fragment_add_quiz_success">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_addQuizSuccessFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard" />
+    </fragment>
 
 </navigation>
