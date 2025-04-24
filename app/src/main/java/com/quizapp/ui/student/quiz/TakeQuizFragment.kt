@@ -28,7 +28,7 @@ class TakeQuizFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // shared preferences initialize
         preferences = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
         editor = preferences.edit()
@@ -87,7 +87,10 @@ class TakeQuizFragment : BaseFragment() {
         if(ic) {
             editor.putInt("currentPoints", currentPoints + 10)
             editor.putInt("correctAnswers", correctAnswers + 1)
+            // shows information about current points instead of a placeholder
+            binding.correctAnswerDescText.text = getString(R.string.add_point_text, currentPoints.toString())
         } else {
+            // wrong answer handler. shows "the correct answer is ANSWER", replacing the correctAnswerText placeholder
             editor.putInt("wrongAnswers", wrongAnswers + 1)
             binding.correctAnswerText.text =
                 getString(R.string.student_correct_answer_description_display, ca)
