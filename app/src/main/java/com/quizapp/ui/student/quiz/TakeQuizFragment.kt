@@ -141,12 +141,14 @@ class TakeQuizFragment : BaseFragment() {
             viewModel.question.collect {
                 val base = viewModel.question.value
                 if(base != Question()) {
-                    binding.loading.isVisible = false
-                    binding.tvQuestion.text = base.text
-                    binding.answer1Text.text = base.options[0].text
-                    binding.answer2Text.text = base.options[1].text
-                    binding.answer3Text.text = base.options[2].text
-                    binding.answer4Text.text = base.options[3].text
+                    binding.run {
+                        loading.isVisible = false
+                        tvQuestion.text = base.text
+                        answer1Text.text = base.options[0].text
+                        answer2Text.text = base.options[1].text
+                        answer3Text.text = base.options[2].text
+                        answer4Text.text = base.options[3].text
+                    }
                 }
             }
         }
