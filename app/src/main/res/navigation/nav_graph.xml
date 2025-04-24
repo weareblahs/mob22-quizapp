@@ -55,7 +55,11 @@
         android:id="@+id/studentDashboard"
         android:name="com.quizapp.ui.student.home.DashboardFragment"
         android:label="fragment_student_dashboard"
-        tools:layout="@layout/fragment_student_dashboard" />
+        tools:layout="@layout/fragment_student_dashboard" >
+        <action
+            android:id="@+id/action_studentDashboard_to_startQuizFragment"
+            app:destination="@id/startQuizFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addQuizFragment"
         android:name="com.quizapp.ui.teacher.add_quiz.AddQuizFragment"
@@ -99,6 +103,40 @@
         <action
             android:id="@+id/action_addQuizSuccessFragment_to_teacherDashboard"
             app:destination="@id/teacherDashboard" />
+    </fragment>
+
+        <fragment
+        android:id="@+id/startQuizFragment"
+        android:name="com.quizapp.ui.student.startquiz.StartQuizFragment"
+        android:label="fragment_start_quiz"
+        tools:layout="@layout/fragment_start_quiz" >
+        <argument android:name="code" app:argType="string" app:nullable="false"/>
+        <action
+            android:id="@+id/action_startQuizFragment_to_takeQuizFragment"
+            app:destination="@id/takeQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/takeQuizFragment"
+        android:name="com.quizapp.ui.student.quiz.TakeQuizFragment"
+        android:label="fragment_take_quiz"
+        tools:layout="@layout/fragment_take_quiz" >
+        <argument android:name="quizId" app:argType="string" app:nullable="false"/>
+        <argument android:name="questionNo" app:argType="integer" app:nullable="false"/>
+        <action
+            android:id="@+id/nextQuestion"
+            app:destination="@id/takeQuizFragment" />
+        <action
+            android:id="@+id/action_takeQuizFragment_to_quizResultFragment"
+            app:destination="@id/quizResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizResultFragment"
+        android:name="com.quizapp.ui.student.quiz.result.QuizResultFragment"
+        android:label="fragment_quiz_result"
+        tools:layout="@layout/fragment_quiz_result" >
+        <action
+            android:id="@+id/action_quizResultFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard" />
     </fragment>
 
 </navigation>
