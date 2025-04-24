@@ -12,7 +12,6 @@ import com.quizapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +21,7 @@ class DashboardViewModel @Inject constructor(
     private val repo: QuizRepo
 ) : BaseViewModel() {
     private val _quiz = MutableStateFlow<List<Quiz>>(emptyList())
-    val quiz: StateFlow<List<Quiz>> = _quiz
+    val quiz = _quiz.asStateFlow()
 
     init {
         getQuizzes()
@@ -58,7 +57,7 @@ class DashboardViewModel @Inject constructor(
                         Question(
                             id = "q1",
                             text = "What is 2 + 2?",
-                            type = QuestionType.MULTIPLE_CHOICE,
+                            type = QuestionType.SINGLE_CHOICE,
                             options = listOf(
                                 Option("3", false),
                                 Option("4", true),
@@ -68,7 +67,7 @@ class DashboardViewModel @Inject constructor(
                         Question(
                             id = "q2",
                             text = "Select the prime number:",
-                            type = QuestionType.MULTIPLE_CHOICE,
+                            type = QuestionType.SINGLE_CHOICE,
                             options = listOf(
                                 Option("4", false),
                                 Option("7", true),

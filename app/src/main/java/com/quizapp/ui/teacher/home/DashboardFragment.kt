@@ -34,9 +34,9 @@ class DashboardFragment : BaseFragment() {
         super.setupUiComponents(view)
         setupAdapter()
         binding.fabAddQuiz.setOnClickListener{
-            viewModel.addDummyQuiz()
+//            viewModel.addDummyQuiz()
             val action = DashboardFragmentDirections.actionTeacherDashboardToAddQuizFragment()
-//            findNavController().navigate(action)
+            findNavController().navigate(action)
         }
     }
 
