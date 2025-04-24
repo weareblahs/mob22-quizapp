@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.quizapp.R
 import com.quizapp.databinding.FragmentQuizResultBinding
@@ -46,7 +47,12 @@ class QuizResultFragment : Fragment() {
             btnContinue.setOnClickListener {
 //              // navigate back to student dashboard
                 val dir = QuizResultFragmentDirections.actionQuizResultFragmentToStudentDashboard()
-                findNavController().navigate(dir)
+                findNavController().navigate(
+                    dir,
+                    NavOptions.Builder()
+                        .setPopUpTo(findNavController().graph.startDestinationId, true)
+                        .build()
+                )
             }
         }
     }

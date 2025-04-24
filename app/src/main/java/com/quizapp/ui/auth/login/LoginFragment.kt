@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.quizapp.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,8 +19,6 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
-    private var isResumedFromBackStack = false
-    private var hasBeenCreated = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,27 +40,13 @@ class LoginFragment : Fragment() {
             viewModel.loginInfo.collect {
                 if(it.isLogin) {
                     when(it.role) {
-                        "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard())
-                        "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard())
-                        "" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment())
+                        "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
+                        "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
+                        "" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
                     }
                 }
             }
         }
     }
 
-    // exit app when back button tapped. since all the logic is in
-    // the login fragment, not doing this will cause a "trap" that
-    // will redirect back to the dashboard fragment everytime
-    override fun onResume() {
-        super.onResume()
-        if (hasBeenCreated && isResumedFromBackStack) {
-            requireActivity().finish()
-        }
-        if (!hasBeenCreated) {
-            hasBeenCreated = true
-        } else {
-            isResumedFromBackStack = true
-        }
-    }
 }
