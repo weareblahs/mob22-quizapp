@@ -59,13 +59,29 @@ class QuizRepoImpl @Inject constructor (val authService: AuthService): QuizRepo 
         }
     }
 
-    override suspend fun addQuiz(quiz: Quiz) {
-        if (uid == null) return
+    override suspend fun addQuiz(quiz: Quiz): String {
+        if (uid == null) return ""
 
-        // Set the createdBy field to the user's UID
-        val docRef = getQuizCollection().document()
-        val quizCopy = quiz.copy(id = docRef.id, createdBy = uid)
+        val id = generateUnique6DigitId()
+
+        val docRef = getQuizCollection().document(id)
+        val quizCopy = quiz.copy(id = id, createdBy = uid)
         docRef.set(quizCopy).await()
+        return id
+    }
+
+    private suspend fun generateUnique6DigitId(): String {
+        val charset = ('A'..'Z') + ('0'..'9')
+        var id: String
+        var docExists: Boolean
+
+        do {
+            id = List(6) { charset.random() }.joinToString("")
+            val docRef = getQuizCollection().document(id)
+            docExists = docRef.get().await().exists()
+        } while (docExists)
+
+        return id
     }
 
     override suspend fun updateQuiz(quiz: Quiz) {

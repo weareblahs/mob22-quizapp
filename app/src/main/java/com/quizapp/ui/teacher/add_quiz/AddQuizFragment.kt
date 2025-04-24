@@ -5,56 +5,78 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.quizapp.R
+import com.quizapp.databinding.FragmentAddQuizBinding
+import com.quizapp.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AddQuizFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AddQuizFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+@AndroidEntryPoint
+class AddQuizFragment : BaseFragment() {
+    private lateinit var binding: FragmentAddQuizBinding
+    override val viewModel: AddQuizViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_quiz, container, false)
+        binding = FragmentAddQuizBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddQuizFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddQuizFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun setupUiComponents(view: View) {
+        super.setupUiComponents(view)
+
+        setupToolbar()
+        setupTextFields()
+        setupButtons()
     }
+
+    private fun setupToolbar() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun setupTextFields() {
+        binding.etTitle.addTextChangedListener {
+            viewModel.setQuizTitle(it.toString())
+        }
+
+        binding.etDesc.addTextChangedListener {
+            viewModel.setQuizDesc(it.toString())
+        }
+    }
+
+    private fun setupButtons(){
+        binding.mbAddManually.setOnClickListener {
+            if(validateInput()){
+                val action = AddQuizFragmentDirections.actionAddQuizFragmentToManualAddQuizFragment(
+                    binding.etTitle.text.toString(),
+                    binding.etDesc.text.toString()
+                )
+                findNavController().navigate(action)
+            }
+        }
+
+        binding.mbImportCsv.setOnClickListener {
+            Toast.makeText(context, "CSV import functionality coming soon!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun validateInput(): Boolean {
+        if (binding.etTitle.text.toString().isBlank()) {
+            binding.textInputLayoutQuizName.error = "Quiz name cannot be empty"
+            return false
+        } else {
+            binding.textInputLayoutQuizName.error = null
+        }
+        return true
+    }
+
+
 }

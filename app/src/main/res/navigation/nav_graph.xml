@@ -60,7 +60,11 @@
         android:id="@+id/addQuizFragment"
         android:name="com.quizapp.ui.teacher.add_quiz.AddQuizFragment"
         android:label="fragment_add_quiz"
-        tools:layout="@layout/fragment_add_quiz" />
+        tools:layout="@layout/fragment_add_quiz" >
+        <action
+            android:id="@+id/action_addQuizFragment_to_manualAddQuizFragment"
+            app:destination="@id/manualAddQuizFragment" />
+    </fragment>
     <fragment
         android:id="@+id/quizDetailFragment"
         android:name="com.quizapp.ui.teacher.detail.QuizDetailFragment"
@@ -70,4 +74,31 @@
             android:name="quizId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/manualAddQuizFragment"
+        android:name="com.quizapp.ui.teacher.add_quiz.manual.ManualAddQuizFragment"
+        android:label="ManualAddQuizFragment" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="desc"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_manualAddQuizFragment_to_addQuizSuccessFragment"
+            app:destination="@id/addQuizSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addQuizSuccessFragment"
+        android:name="com.quizapp.ui.teacher.add_quiz.success.AddQuizSuccessFragment"
+        android:label="fragment_add_quiz_success"
+        tools:layout="@layout/fragment_add_quiz_success">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_addQuizSuccessFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard" />
+    </fragment>
+
 </navigation>

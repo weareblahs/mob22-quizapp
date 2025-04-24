@@ -39,12 +39,30 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:text="Your quiz has been successfully created and saved."
+        android:text="Your quiz has been successfully created and saved.\nQuiz Code:"
         android:textColor="#757575"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSuccess" />
+
+    <TextView
+        android:id="@+id/textViewQuizCode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="#E3F2FD"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textColor="#1E88E5"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="ABC123XYZ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSuccessMessage" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,6 +82,16 @@
             android:backgroundTint="#1E88E5"
             android:padding="12dp"
             android:text="Share Quiz"
+            android:textColor="#FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCopyCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            android:text="Copy Quiz Code"
             android:textColor="#FFFFFF" />
 
         <com.google.android.material.button.MaterialButton
