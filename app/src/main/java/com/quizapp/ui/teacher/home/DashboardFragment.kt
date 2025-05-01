@@ -63,7 +63,17 @@ class DashboardFragment : BaseFragment() {
 
             override fun onDeleteClick(quiz: Quiz) {
                 // Handle delete click
-                viewModel.deleteQuiz(quiz)
+                fun deleteQuiz() {
+                    viewModel.deleteQuiz(quiz)
+                }
+                showDialog(
+                    "Delete Quiz",
+                    "Are you sure you want to delete this quiz?",
+                    "Delete",
+                    ::deleteQuiz,
+                    true,
+                    "Quiz Delete Successfully"
+                )
             }
         }
     }
