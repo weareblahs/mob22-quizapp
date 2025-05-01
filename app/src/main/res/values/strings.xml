@@ -45,4 +45,25 @@
     <string name="answer_4_placeholder_text">Answer 4</string>
     <string name="answer_3_placeholder_text">Answer 3</string>
     <string name="quiz_name_placeholder">Quiz name</string>
+    <string name="sample_six_alphanumeric_code">ABC123</string>
+    <string name="start_quiz_header_begin_text">You are about to begin:</string>
+    <string name="cancelBtn">Cancel</string>
+    <string name="quiz_description_placeholder">Quiz description</string>
+    <string name="point_indicator">%1$s points</string>
+    <string name="wrong_answer_header_text">You\'re wrong!</string>
+    <string name="correct_answer_placeholder">Correct answer placeholder</string>
+    <string name="correct_answer_header_text">You\'re correct!</string>
+    <string name="student_correct_answer_description_display">The correct answer is %1$s</string>
+    <string name="add_point_text">10 points has been added.</string>
+    <string name="profile_image_placeholder_text">Profile image</string>
+    <string name="log_out">Log out</string>
+    <string name="log_out_confirmation">Are you sure you want to log out? This cannot be undone!</string>
+    <string name="redo_previous_quizzes_no_quiz_indicator_title">No quiz done</string>
+    <string name="redo_previous_quizzes_no_quiz_indicator_description">Start doing quizzes by entering the code above so you can redo quizzes here.</string>
+    <string name="initial_number_placeholder_value">0</string>
+    <string name="correct_icon_content_description">Correct icon</string>
+    <string name="wrong_icon_content_description">Wrong icon</string>
+    <string name="points_content_description">Points</string>
+    <string name="quiz_saved_successfully">Quiz saved successfully</string>
+    <string name="quiz_history_description_result_page">Your quiz is saved to quiz history. If you want to redo the quiz, check the \"Redo Previous Quizzes\" section at the dashboard.</string>
 </resources>

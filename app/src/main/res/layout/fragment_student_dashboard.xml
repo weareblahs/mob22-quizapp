@@ -9,6 +9,20 @@
     <!--  TOP PART: enter quiz code to join  -->
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10sp"
+        android:paddingHorizontal="20sp"
+        android:orientation="vertical">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_gravity="end"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            android:padding="4sp"
+            android:id="@+id/profilePicture"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -21,18 +35,19 @@
             android:text="@string/join_with_code"/>
 
         <EditText
-            android:layout_marginTop="16sp"
-            android:layout_marginHorizontal="50sp"
-            android:layout_width="match_parent"
-            android:autofillHints="@string/join_with_code"
-            android:textAlignment="center"
-            android:layout_height="wrap_content"
             android:id="@+id/etCodeInput"
-            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50sp"
+            android:layout_marginTop="16sp"
+            android:autofillHints="@string/join_with_code"
             android:background="@drawable/textbox"
-            android:textSize="36sp"
+            android:hint="@string/sample_six_alphanumeric_code"
+            android:inputType="textCapCharacters"
+            android:maxLength="6"
             android:padding="12sp"
-            android:hint="@string/sample_six_digit_code"/>
+            android:textAlignment="center"
+            android:textSize="36sp" />
 
         <Button
             android:layout_marginHorizontal="50sp"
@@ -57,10 +72,34 @@
             android:textAlignment="center"
             android:textSize="32sp"
             android:text="@string/redo_quizzes"/>
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rvQuizHistory"/>
+            android:layout_height="match_parent"
+            android:id="@+id/llNoQuiz"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="40sp"
+                android:text="@string/redo_previous_quizzes_no_quiz_indicator_title"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:text="@string/redo_previous_quizzes_no_quiz_indicator_description"/>
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvQuizHistory"/>
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>
