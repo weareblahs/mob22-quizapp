@@ -34,7 +34,7 @@ abstract class BaseFragment: Fragment() {
 
     }
 
-    private fun showError(msg: String) {
+    fun showError(msg: String) {
         Snackbar.make(requireView(), msg, Snackbar.LENGTH_LONG).apply {
             setBackgroundTint(
                 ContextCompat.getColor (

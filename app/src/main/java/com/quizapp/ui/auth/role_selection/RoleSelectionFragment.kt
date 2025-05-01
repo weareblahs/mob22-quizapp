@@ -1,13 +1,13 @@
 package com.quizapp.ui.auth.role_selection
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.quizapp.R
 import com.quizapp.databinding.FragmentRoleSelectionBinding
@@ -20,8 +20,6 @@ class RoleSelectionFragment : BaseFragment() {
     private lateinit var binding: FragmentRoleSelectionBinding
     override val viewModel: RoleSelectionViewModel by viewModels()
     private var currentRole = ""
-    private var isResumedFromBackStack = false
-    private var hasBeenCreated = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,8 +46,8 @@ class RoleSelectionFragment : BaseFragment() {
         binding.btnContinue.setOnClickListener {
             viewModel.setRole(currentRole)
             when(currentRole) {
-                "teacher" -> findNavController().navigate(RoleSelectionFragmentDirections.actionRoleSelectionFragmentToTeacherDashboard())
-                "student" -> findNavController().navigate(RoleSelectionFragmentDirections.actionRoleSelectionFragmentToStudentDashboard())
+                "teacher" -> findNavController().navigate(RoleSelectionFragmentDirections.actionRoleSelectionFragmentToTeacherDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
+                "student" -> findNavController().navigate(RoleSelectionFragmentDirections.actionRoleSelectionFragmentToStudentDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
             }
         }
     }
@@ -70,17 +68,4 @@ class RoleSelectionFragment : BaseFragment() {
         }
     }
 
-    // will redirect back to the dashboard fragment everytime
-    override fun onResume() {
-        super.onResume()
-        Log.d("debugging", "isResumedFromBackStack: ${isResumedFromBackStack}, hasBeenCreated: ${hasBeenCreated}")
-        if (hasBeenCreated && isResumedFromBackStack) {
-            requireActivity().finish()
-        }
-        if (!hasBeenCreated) {
-            hasBeenCreated = true
-        } else {
-            isResumedFromBackStack = true
-        }
-    }
 }
