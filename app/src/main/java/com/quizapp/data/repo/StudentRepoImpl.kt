@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class StudentRepoImpl @Inject constructor (private val authService: AuthService): StudentRepo {
     private val db = Firebase.firestore
-    private val uid = authService.getUid()
+    private val uid = authService.getUid() ?: ""
     private fun getQuizRef() : CollectionReference {
         return db.collection("quizzes")
     }

@@ -38,7 +38,7 @@ class LoginFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.loginInfo.collect {
-                if(it.isLogin) {
+                if(it.isLogin && it.role != null) {
                     when(it.role) {
                         "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
                         "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())

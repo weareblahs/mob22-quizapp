@@ -55,6 +55,7 @@ class DashboardViewModel @Inject constructor(private val authService: AuthServic
         _quizInfo.value = Quiz()
         _shouldNavigate.value = false
         _errorMsg.value = ""
+        _quizHistory.value = emptyList()
     }
 
     fun resetNavigationFlag() {
@@ -75,7 +76,7 @@ class DashboardViewModel @Inject constructor(private val authService: AuthServic
     private fun getQuizzes() {
         viewModelScope.launch(Dispatchers.IO) {
             errorHandler {
-                repo.getHistory().collect(){
+                repo.getHistory().collect{
                     _quizHistory.value = it
                 }
             }

@@ -3,6 +3,7 @@ package com.quizapp.ui.student.quiz
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,16 +72,14 @@ class TakeQuizFragment : BaseFragment() {
     }
 
     private fun submitAnswer(answer: Int) {
-        val ca = viewModel.question.value.options.filter {
-            it.isCorrect
-        }[0].text // correct answer for this question (if single selection)
+        val ca = viewModel.question.value.options[viewModel.question.value.answer - 1].text // correct answer for this question (if single selection)
         val currentPoints = preferences.getInt("currentPoints", -1)
         val currentQuestion = preferences.getInt("currentQuestion", -1)
         val totalQuestions = preferences.getInt("totalQuestions", -1)
         val correctAnswers = preferences.getInt("correctAnswers", -1)
         val wrongAnswers = preferences.getInt("wrongAnswers", -1)
         val quizId = preferences.getString("quizId", "")
-        val ic = viewModel.question.value.options[answer-1].isCorrect
+        val ic = (viewModel.question.value.answer == answer)
         binding.correctAnswer.isVisible = ic
         binding.wrongAnswer.isVisible = !ic
 

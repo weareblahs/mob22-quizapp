@@ -59,9 +59,9 @@ class DashboardViewModel @Inject constructor(
                             text = "What is 2 + 2?",
                             type = QuestionType.SINGLE_CHOICE,
                             options = listOf(
-                                Option("3", false),
-                                Option("4", true),
-                                Option("5", false)
+                                Option("3"),
+                                Option("4"),
+                                Option("5")
                             )
                         ),
                         Question(
@@ -69,9 +69,9 @@ class DashboardViewModel @Inject constructor(
                             text = "Select the prime number:",
                             type = QuestionType.SINGLE_CHOICE,
                             options = listOf(
-                                Option("4", false),
-                                Option("7", true),
-                                Option("8", false)
+                                Option("4"),
+                                Option("7",),
+                                Option("8")
                             )
                         )
                     )
