@@ -36,6 +36,8 @@ class DashboardFragment : BaseFragment() {
     override fun setupUiComponents(view: View) {
         super.setupUiComponents(view)
 
+        viewModel.resetQuiz()
+
         setupAdapter()
 
         parentFragmentManager.setFragmentResultListener("requests", viewLifecycleOwner) { _, bundle ->
