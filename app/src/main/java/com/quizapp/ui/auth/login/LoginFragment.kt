@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
                     when(it.role) {
                         "teacher" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTeacherDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
                         "student" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToStudentDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
-                        "" -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
+                        else -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRoleSelectionFragment(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
                     }
                 }
             }
