@@ -4,23 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.quizapp.R
 import com.quizapp.data.model.Option
 import com.quizapp.data.model.Question
-import com.quizapp.data.model.Quiz
 import com.quizapp.databinding.FragmentManualAddQuizBinding
 import com.quizapp.ui.base.BaseFragment
 import com.quizapp.ui.quiz.ManualAddQuizViewModel
-import com.quizapp.ui.teacher.adapters.QuestionAdapter
+import com.quizapp.ui.teacher.adapters.AddQuestionAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 @AndroidEntryPoint
 class ManualAddQuizFragment : BaseFragment() {
@@ -28,7 +26,7 @@ class ManualAddQuizFragment : BaseFragment() {
     private val args: ManualAddQuizFragmentArgs by navArgs()
     override val viewModel: ManualAddQuizViewModel by viewModels()
 
-    private lateinit var questionAdapter: QuestionAdapter
+    private lateinit var questionAdapter: AddQuestionAdapter
     private var quizTitle = ""
     private var quizDescription = ""
 
@@ -76,7 +74,7 @@ class ManualAddQuizFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        questionAdapter = QuestionAdapter(emptyList())
+        questionAdapter = AddQuestionAdapter(emptyList())
         binding.rvQuestions.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = questionAdapter
@@ -131,6 +129,7 @@ class ManualAddQuizFragment : BaseFragment() {
         ) return null
 
         return Question(
+            id = UUID.randomUUID().toString(),
             text = questionText,
             options = listOf(
                 Option(option1),
