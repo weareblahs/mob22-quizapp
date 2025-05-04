@@ -48,8 +48,8 @@ class QuizDetailFragment : BaseFragment() {
         setupAdapter()
         binding.fabAddQuestion.setOnClickListener {
             val action = QuizDetailFragmentDirections.actionQuizDetailFragmentToManageQuestionFragment(
-                "",
-                args.quizId
+                questionId = "",
+                quizId = args.quizId
             )
             findNavController().navigate(action)
         }
@@ -60,6 +60,7 @@ class QuizDetailFragment : BaseFragment() {
         super.setupViewModelObserver()
         lifecycleScope.launch {
             viewModel.quizDetail.collect{
+                Log.d("debugging", "setupViewModelObserver: $it")
                 binding.textViewTitle.text = it?.title
                 binding.textViewDescription.text = if(it?.description != ""){
                     it?.description
@@ -85,9 +86,10 @@ class QuizDetailFragment : BaseFragment() {
             androidx.recyclerview.widget.LinearLayoutManager(requireContext())
         questionAdapter.listener = object : ShowQuestionAdapter.Listener {
             override fun onEditClick(question: Question) {
+                Log.d("debugging", "onEditClick: $question")
                 val action = QuizDetailFragmentDirections.actionQuizDetailFragmentToManageQuestionFragment(
-                    question.id ?: "",
-                    args.quizId
+                    quizId = args.quizId,
+                    questionId = question.id ?: ""
                 )
                 findNavController().navigate(action)
             }

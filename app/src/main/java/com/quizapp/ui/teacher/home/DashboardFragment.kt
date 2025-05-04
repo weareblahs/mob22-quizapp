@@ -46,6 +46,14 @@ class DashboardFragment : BaseFragment() {
             viewModel.quiz.collect { quiz ->
                 Log.d("debugging", "setupViewModelObserver: $quiz")
                 quizAdapter.setQuizs(quiz)
+
+                if (quiz.isEmpty()) {
+                    binding.rvQuizzes.visibility = View.GONE
+                    binding.layoutEmptyState.visibility = View.VISIBLE
+                } else {
+                    binding.rvQuizzes.visibility = View.VISIBLE
+                    binding.layoutEmptyState.visibility = View.GONE
+                }
             }
         }
     }
