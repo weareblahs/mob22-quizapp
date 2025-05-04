@@ -1,19 +1,17 @@
 package com.quizapp.ui.teacher.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.quizapp.data.model.Option
 import com.quizapp.data.model.Question
-import com.quizapp.databinding.ItemQuestionBinding
+import com.quizapp.databinding.ItemAddQuestionBinding
 
-class QuestionAdapter(
+class AddQuestionAdapter(
     private var questionList: List<Question>
-) : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
+) : RecyclerView.Adapter<AddQuestionAdapter.QuestionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
-        val binding = ItemQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemAddQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return QuestionViewHolder(binding)
     }
 
@@ -29,7 +27,7 @@ class QuestionAdapter(
         notifyDataSetChanged()
     }
 
-    class QuestionViewHolder(private val binding: ItemQuestionBinding) : RecyclerView.ViewHolder(binding.root) {
+    class QuestionViewHolder(private val binding: ItemAddQuestionBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(question: Question) {
             binding.tvQuestionText.text = question.text

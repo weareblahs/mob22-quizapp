@@ -80,6 +80,9 @@
         <argument
             android:name="quizId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_quizDetailFragment_to_manageQuestionFragment"
+            app:destination="@id/manageQuestionFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualAddQuizFragment"
@@ -140,6 +143,18 @@
         <action
             android:id="@+id/action_quizResultFragment_to_studentDashboard"
             app:destination="@id/studentDashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageQuestionFragment"
+        android:name="com.quizapp.ui.teacher.manage_question.ManageQuestionFragment"
+        android:label="fragment_manage_question"
+        tools:layout="@layout/fragment_manage_question" >
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <argument
+            android:name="questionId"
+            app:argType="string" />
     </fragment>
 
 </navigation>
