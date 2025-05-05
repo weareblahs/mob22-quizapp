@@ -1,13 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.quizapp.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/loginFragment"
+        android:name="com.quizapp.ui.auth.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_roleSelectionFragment"
+            app:destination="@id/roleSelectionFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/roleSelectionFragment"
+        android:name="com.quizapp.ui.auth.role_selection.RoleSelectionFragment"
+        android:label="fragment_role_selection"
+        tools:layout="@layout/fragment_role_selection" >
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+        <action
+            android:id="@+id/action_roleSelectionFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard"
+            app:restoreState="false"
+            app:popUpToSaveState="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherDashboard"
+        android:name="com.quizapp.ui.teacher.home.DashboardFragment"
+        android:label="fragment_teacher_dashboard"
+        tools:layout="@layout/fragment_teacher_dashboard" >
+        <action
+            android:id="@+id/action_teacherDashboard_to_addQuizFragment"
+            app:destination="@id/addQuizFragment" />
+        <action
+            android:id="@+id/action_teacherDashboard_to_quizDetailFragment"
+            app:destination="@id/quizDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentDashboard"
+        android:name="com.quizapp.ui.student.home.DashboardFragment"
+        android:label="fragment_student_dashboard"
+        tools:layout="@layout/fragment_student_dashboard" >
+        <action
+            android:id="@+id/action_studentDashboard_to_startQuizFragment"
+            app:destination="@id/startQuizFragment" />
+        <action
+            android:id="@+id/action_studentDashboard_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addQuizFragment"
+        android:name="com.quizapp.ui.teacher.add_quiz.AddQuizFragment"
+        android:label="fragment_add_quiz"
+        tools:layout="@layout/fragment_add_quiz" >
+        <action
+            android:id="@+id/action_addQuizFragment_to_manualAddQuizFragment"
+            app:destination="@id/manualAddQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizDetailFragment"
+        android:name="com.quizapp.ui.teacher.detail.QuizDetailFragment"
+        android:label="fragment_quiz_detail"
+        tools:layout="@layout/fragment_quiz_detail">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_quizDetailFragment_to_manageQuestionFragment"
+            app:destination="@id/manageQuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manualAddQuizFragment"
+        android:name="com.quizapp.ui.teacher.add_quiz.manual.ManualAddQuizFragment"
+        android:label="ManualAddQuizFragment" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="desc"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_manualAddQuizFragment_to_addQuizSuccessFragment"
+            app:destination="@id/addQuizSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addQuizSuccessFragment"
+        android:name="com.quizapp.ui.teacher.add_quiz.success.AddQuizSuccessFragment"
+        android:label="fragment_add_quiz_success"
+        tools:layout="@layout/fragment_add_quiz_success">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_addQuizSuccessFragment_to_teacherDashboard"
+            app:destination="@id/teacherDashboard" />
+    </fragment>
+
+        <fragment
+        android:id="@+id/startQuizFragment"
+        android:name="com.quizapp.ui.student.startquiz.StartQuizFragment"
+        android:label="fragment_start_quiz"
+        tools:layout="@layout/fragment_start_quiz" >
+        <argument android:name="code" app:argType="string" app:nullable="false"/>
+        <action
+            android:id="@+id/action_startQuizFragment_to_takeQuizFragment"
+            app:destination="@id/takeQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/takeQuizFragment"
+        android:name="com.quizapp.ui.student.quiz.TakeQuizFragment"
+        android:label="fragment_take_quiz"
+        tools:layout="@layout/fragment_take_quiz" >
+        <argument android:name="quizId" app:argType="string" app:nullable="false"/>
+        <argument android:name="questionNo" app:argType="integer" app:nullable="false"/>
+        <action
+            android:id="@+id/nextQuestion"
+            app:destination="@id/takeQuizFragment" />
+        <action
+            android:id="@+id/action_takeQuizFragment_to_quizResultFragment"
+            app:destination="@id/quizResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizResultFragment"
+        android:name="com.quizapp.ui.student.quiz.result.QuizResultFragment"
+        android:label="fragment_quiz_result"
+        tools:layout="@layout/fragment_quiz_result" >
+        <action
+            android:id="@+id/action_quizResultFragment_to_studentDashboard"
+            app:destination="@id/studentDashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageQuestionFragment"
+        android:name="com.quizapp.ui.teacher.manage_question.ManageQuestionFragment"
+        android:label="fragment_manage_question"
+        tools:layout="@layout/fragment_manage_question" >
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <argument
+            android:name="questionId"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

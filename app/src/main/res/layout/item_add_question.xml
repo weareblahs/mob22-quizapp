@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:padding="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Question Text -->
+        <TextView
+            android:id="@+id/tvQuestionText"
+            android:text="Question Text"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Options -->
+        <RadioGroup
+            android:id="@+id/rgOptions"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Option 1 -->
+            <RadioButton
+                android:id="@+id/rbOption1"
+                android:text="Option 1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Option 2 -->
+            <RadioButton
+                android:id="@+id/rbOption2"
+                android:text="Option 2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Option 3 -->
+            <RadioButton
+                android:id="@+id/rbOption3"
+                android:text="Option 3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Option 4 -->
+            <RadioButton
+                android:id="@+id/rbOption4"
+                android:text="Option 4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
