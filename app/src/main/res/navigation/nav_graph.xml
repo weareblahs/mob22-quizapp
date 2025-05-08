@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_addQuizFragment_to_manualAddQuizFragment"
             app:destination="@id/manualAddQuizFragment" />
+        <action
+            android:id="@+id/addQuizSuccess"
+            app:destination="@id/addQuizSuccessFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizDetailFragment"
