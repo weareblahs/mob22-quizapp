@@ -62,10 +62,6 @@ class AddQuizFragment : BaseFragment() {
                 findNavController().navigate(action)
             }
         }
-
-        binding.mbImportCsv.setOnClickListener {
-            Toast.makeText(context, "CSV import functionality coming soon!", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun validateInput(): Boolean {
