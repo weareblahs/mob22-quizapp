@@ -66,4 +66,6 @@
     <string name="points_content_description">Points</string>
     <string name="quiz_saved_successfully">Quiz saved successfully</string>
     <string name="quiz_history_description_result_page">Your quiz is saved to quiz history. If you want to redo the quiz, check the \"Redo Previous Quizzes\" section at the dashboard.</string>
+    <string name="my_quizzes">My Quizzes</string>
+    <string name="your_quizzes">Your quizzes</string>
 </resources>

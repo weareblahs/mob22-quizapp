@@ -33,8 +33,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideUserRepo(authService: AuthService): UserRepo {
-        return UserRepoImpl(authService = authService)
+    fun provideUserRepo(): UserRepo {
+        return UserRepoImpl()
     }
 
     @Provides

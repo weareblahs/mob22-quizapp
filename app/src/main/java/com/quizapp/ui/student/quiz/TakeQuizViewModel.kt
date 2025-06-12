@@ -1,5 +1,6 @@
 package com.quizapp.ui.student.quiz
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.quizapp.data.model.Question
 import com.quizapp.data.repo.StudentRepo
@@ -19,6 +20,7 @@ class TakeQuizViewModel @Inject constructor(private val repo: StudentRepo) : Bas
     fun retrieveQuestion(quizId: String, question: Int) {
         viewModelScope.launch {
             val questionList = repo.getQuiz(quizId)?.questions
+            Log.d("debugging", questionList.toString())
             _question.update {
                 questionList!![question - 1]
             }

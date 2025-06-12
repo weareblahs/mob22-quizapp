@@ -1,5 +1,6 @@
 package com.quizapp.ui.auth.role_selection
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.quizapp.core.service.AuthService
 import com.quizapp.data.repo.QuizRepo
@@ -12,14 +13,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RoleSelectionViewModel @Inject constructor(
+    private val authService: AuthService,
     private val repo: UserRepo
 ): BaseViewModel() {
-
+    private val uid = authService.getUid();
+    init {
+        Log.d("debugging", uid.toString());
+    }
     fun setRole(role: String) {
         viewModelScope.launch (Dispatchers.IO) {
             when(role) {
-                "student" -> repo.changeRole("student")
-                "teacher" -> repo.changeRole("teacher")
+                "student" -> uid?.let { repo.changeRole("student", it) }
+                "teacher" -> uid?.let { repo.changeRole("teacher", it) }
             }
         }
     }

@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/teacherDashboard"
-        android:name="com.quizapp.ui.teacher.home.DashboardFragment"
+        android:name="com.quizapp.ui.home.DashboardFragment"
         android:label="fragment_teacher_dashboard"
         tools:layout="@layout/fragment_teacher_dashboard" >
         <action
@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_teacherDashboard_to_quizDetailFragment"
             app:destination="@id/quizDetailFragment" />
+        <action
+            android:id="@+id/action_teacherDashboard_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentDashboard"

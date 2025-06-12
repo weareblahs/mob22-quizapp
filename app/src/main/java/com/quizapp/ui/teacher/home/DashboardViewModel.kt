@@ -13,16 +13,18 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(
+class DashboardViewModel @Inject constructor(private val authService: AuthService,
     private val repo: QuizRepo
 ) : BaseViewModel() {
     private val _quiz = MutableStateFlow<List<Quiz>>(emptyList())
     val quiz = _quiz.asStateFlow()
-
+    private val _logout = MutableStateFlow(false)
+    val logout = _logout.asStateFlow()
     init {
         getQuizzes()
     }
@@ -83,5 +85,10 @@ class DashboardViewModel @Inject constructor(
         getQuizzes()
     }
 
-
+    fun logout() {
+        viewModelScope.launch {
+            authService.logout()
+            _logout.update {true}
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.quizapp.ui.teacher.home
+package com.quizapp.ui.home
 
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +13,7 @@ import com.quizapp.data.model.Quiz
 import com.quizapp.databinding.FragmentTeacherDashboardBinding
 import com.quizapp.ui.base.BaseFragment
 import com.quizapp.ui.teacher.adapters.QuizAdapter
+import com.quizapp.ui.teacher.home.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,6 +39,9 @@ class DashboardFragment : BaseFragment() {
             val action = DashboardFragmentDirections.actionTeacherDashboardToAddQuizFragment()
             findNavController().navigate(action)
         }
+        binding.btnLogout.setOnClickListener {
+            viewModel.logout()
+        }
     }
 
     override fun setupViewModelObserver() {
@@ -53,6 +57,13 @@ class DashboardFragment : BaseFragment() {
                 } else {
                     binding.rvQuizzes.visibility = View.VISIBLE
                     binding.layoutEmptyState.visibility = View.GONE
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.logout.collect{
+                if(viewModel.logout.value) {
+                    findNavController().navigate(DashboardFragmentDirections.actionTeacherDashboardToLoginFragment())
                 }
             }
         }

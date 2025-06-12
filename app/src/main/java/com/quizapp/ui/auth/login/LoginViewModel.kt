@@ -1,6 +1,7 @@
 package com.quizapp.ui.auth.login
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.quizapp.core.service.AuthService
 import com.quizapp.data.repo.UserRepo
@@ -8,6 +9,7 @@ import com.quizapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,11 +30,17 @@ class LoginViewModel @Inject constructor(
 
 
     private fun checkLogin() {
-        if(authService.getUid() != null) {
-            _loginInfo.update {it.copy(isLogin = true)}
-            viewModelScope.launch {
-                _loginInfo.update {it.copy(role = repo.getRole())}
-            }
+        val uid = authService.getUid();
+        if(uid != null) {
+         viewModelScope.launch {
+             val role = repo.getRole(uid)
+             if(role != "null") {
+                 _loginInfo.update { it.copy(role = role) };
+             }
+             if(loginInfo.value.role != null) {
+                 _loginInfo.update { it.copy(isLogin = true) }
+             }
+         }
         }
     }
 
@@ -42,7 +50,6 @@ class LoginViewModel @Inject constructor(
                 authService.login(context)
             }?.let {
                 if (it) {
-                    _loginInfo.update {it.copy(isLogin = true)}
                     checkLogin()
                 }
             }
