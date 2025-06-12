@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.quizapp.data.model.Quiz
@@ -43,7 +44,7 @@ class DashboardFragment : BaseFragment() {
             viewModel.logout()
         }
         binding.btnSwitchRole.setOnClickListener {
-            findNavController().navigate(DashboardFragmentDirections.actionTeacherDashboardToRoleSelectionFragment(false))
+            findNavController().navigate(DashboardFragmentDirections.actionTeacherDashboardToRoleSelectionFragment(false), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
         }
     }
 

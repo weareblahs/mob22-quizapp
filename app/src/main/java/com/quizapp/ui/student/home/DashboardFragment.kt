@@ -3,6 +3,7 @@ package com.quizapp.ui.student.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.util.Log
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -51,7 +52,7 @@ class DashboardFragment : BaseFragment() {
         }
 
         binding.btnSwitchRole.setOnClickListener {
-            findNavController().navigate(DashboardFragmentDirections.actionStudentDashboardToRoleSelectionFragment(false))
+            findNavController().navigate(DashboardFragmentDirections.actionStudentDashboardToRoleSelectionFragment(false), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
         }
 
 
@@ -78,6 +79,7 @@ class DashboardFragment : BaseFragment() {
         super.setupViewModelObserver()
         lifecycleScope.launch {
             viewModel.previousRole.collect {
+                Log.d("debugging", viewModel.previousRole.value)
                 binding.btnSwitchRole.isVisible = viewModel.previousRole.value == "teacher"
             }
         }
@@ -101,7 +103,7 @@ class DashboardFragment : BaseFragment() {
             viewModel.logout.collect {
                 if(viewModel.logout.value) {
                     // if logout is set to true then redirect back to login page
-                    findNavController().navigate(DashboardFragmentDirections.actionStudentDashboardToLoginFragment(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
+                    findNavController().navigate(DashboardFragmentDirections.actionStudentDashboardToLoginFragment())
                 }
             }
         }

@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.quizapp.R
 import com.quizapp.databinding.FragmentRoleSelectionBinding
 import com.quizapp.ui.base.BaseFragment
-import com.quizapp.ui.student.startquiz.StartQuizFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -62,11 +61,11 @@ class RoleSelectionFragment : BaseFragment() {
         when(selectedRole) {
             "student" -> {
                 binding.btnStudent.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary_light))
-                binding.btnTeacher.setBackgroundColor(ContextCompat.getColor(requireContext(), com.google.android.material.R.color.material_dynamic_neutral100))
+                binding.btnTeacher.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.tab_bg_light))
             }
             "teacher" -> {
                 binding.btnTeacher.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary_light))
-                binding.btnStudent.setBackgroundColor(ContextCompat.getColor(requireContext(), com.google.android.material.R.color.material_dynamic_neutral100))
+                binding.btnStudent.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.tab_bg_light))
             }
         }
     }

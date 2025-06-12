@@ -3,7 +3,6 @@ package com.quizapp.ui.student.quiz
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,7 +122,7 @@ class TakeQuizFragment : BaseFragment() {
         answer = answerIndex
         binding.run {
             val highlightColor = ContextCompat.getColor(requireContext(), R.color.secondary_light)
-            val defaultColor = ContextCompat.getColor(requireContext(), com.google.android.material.R.color.material_dynamic_neutral100)
+            val defaultColor = ContextCompat.getColor(requireContext(), R.color.tab_bg_light)
 
             val answerViews = arrayOf(cvAnswer1, cvAnswer2, cvAnswer3, cvAnswer4)
 
