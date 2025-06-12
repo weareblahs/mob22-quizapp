@@ -7,14 +7,19 @@ import com.google.firebase.ktx.Firebase
 import com.quizapp.core.service.AuthService
 import com.quizapp.data.model.Quiz
 import com.quizapp.data.model.QuizHistory
+import com.quizapp.data.model.User
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
 class StudentRepoImpl @Inject constructor (private val authService: AuthService): StudentRepo {
     private val db = Firebase.firestore
     private val uid = authService.getUid() ?: ""
+    private fun getUserRef() : CollectionReference {
+        return db.collection("users")
+    }
     private fun getQuizRef() : CollectionReference {
         return db.collection("quizzes")
     }
@@ -55,5 +60,25 @@ class StudentRepoImpl @Inject constructor (private val authService: AuthService)
         awaitClose {
             listener.remove()
         }
+    }
+
+    override suspend fun getPreviousRole(): String {
+        var returnValue = ""
+        try {
+            val document = uid.let { getUserRef().document(it).get().await() }
+            if(document != null) {
+                if (document.exists()) {
+                    Log.d("debugging", "exists")
+                    val obj = document.toObject(User::class.java)
+                    returnValue = obj!!.previousRole.toString()
+                } else {
+                }
+            }
+        } catch (e: CancellationException) {
+            Log.d("debugging", "${e.message}")
+        } catch (e: Exception) {
+            Log.d("debugging", "${e.message}")
+        }
+        return returnValue
     }
 }

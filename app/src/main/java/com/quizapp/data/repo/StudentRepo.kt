@@ -8,4 +8,5 @@ interface StudentRepo {
     suspend fun getQuiz(code: String): Quiz?
     suspend fun storeHistory(data: QuizHistory)
     suspend fun getHistory(): Flow<List<QuizHistory>>
+    suspend fun getPreviousRole(): String
 }

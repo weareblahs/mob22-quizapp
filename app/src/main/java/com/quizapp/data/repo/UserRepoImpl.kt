@@ -36,7 +36,31 @@ class UserRepoImpl @Inject constructor (): UserRepo {
         }
         return returnValue
     }
+
+    override suspend fun getPreviousRole(uid: String?): String {
+        var returnValue = ""
+        try {
+            val document = uid?.let { getUserRef().document(it).get().await() }
+            if(document != null) {
+                if (document.exists()) {
+                    val obj = document.toObject(User::class.java)
+                    returnValue = obj!!.previousRole.toString()
+                } else {
+                }
+            }
+        } catch (e: CancellationException) {
+            Log.d("debugging", "${e.message}")
+        } catch (e: Exception) {
+            Log.d("debugging", "${e.message}")
+        }
+        return returnValue
+    }
+
     override suspend fun changeRole(roleType: String, uid: String) {
-        getUserRef().document(uid).set(User(role = roleType)).await()
+        getUserRef().document(uid).update("role", roleType).await()
+    }
+
+    override suspend fun changeAllRole(roleType: String, uid: String) {
+        getUserRef().document(uid).set(User(role = roleType, previousRole = roleType)).await()
     }
 }

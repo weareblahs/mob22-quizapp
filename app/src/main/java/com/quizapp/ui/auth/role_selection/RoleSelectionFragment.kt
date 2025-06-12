@@ -9,9 +9,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.quizapp.R
 import com.quizapp.databinding.FragmentRoleSelectionBinding
 import com.quizapp.ui.base.BaseFragment
+import com.quizapp.ui.student.startquiz.StartQuizFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +21,7 @@ class RoleSelectionFragment : BaseFragment() {
 // First time login, need to select role (Student/Teacher)
     private lateinit var binding: FragmentRoleSelectionBinding
     override val viewModel: RoleSelectionViewModel by viewModels()
+    private val args: RoleSelectionFragmentArgs by navArgs()
     private var currentRole = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +47,7 @@ class RoleSelectionFragment : BaseFragment() {
         }
 
         binding.btnContinue.setOnClickListener {
-            viewModel.setRole(currentRole)
+            viewModel.setRole(currentRole, args.isFirstTime)
             when(currentRole) {
                 "teacher" -> findNavController().navigate(RoleSelectionFragmentDirections.actionRoleSelectionFragmentToTeacherDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())
                 "student" -> findNavController().navigate(RoleSelectionFragmentDirections.actionRoleSelectionFragmentToStudentDashboard(), NavOptions.Builder().setPopUpTo(findNavController().graph.startDestinationId, true).build())

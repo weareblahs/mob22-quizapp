@@ -29,9 +29,11 @@ class DashboardViewModel @Inject constructor(private val authService: AuthServic
     val logout = _logout.asStateFlow()
     private val _quizHistory = MutableStateFlow<List<QuizHistory>>(emptyList())
     val quizHistory = _quizHistory.asStateFlow()
-
+    val _previousRole = MutableStateFlow<String>("")
+    val previousRole = _previousRole.asStateFlow()
     init {
         getQuizzes()
+        getPrevious()
     }
 
     fun checkQuiz(code: String) {
@@ -73,6 +75,16 @@ class DashboardViewModel @Inject constructor(private val authService: AuthServic
         }
     }
 
+    fun getPrevious() {
+        viewModelScope.launch {
+            viewModelScope.launch {
+                val role =  repo.getPreviousRole()
+                if(role != "null") {
+                    _previousRole.update { role };
+                }
+            }
+        }
+    }
     private fun getQuizzes() {
         viewModelScope.launch(Dispatchers.IO) {
             errorHandler {

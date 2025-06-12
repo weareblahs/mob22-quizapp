@@ -48,8 +48,13 @@ class DashboardFragment : BaseFragment() {
                 // Also clear the input field
                 binding.etCodeInput.text?.clear()
             }
-
         }
+
+        binding.btnSwitchRole.setOnClickListener {
+            findNavController().navigate(DashboardFragmentDirections.actionStudentDashboardToRoleSelectionFragment(false))
+        }
+
+
         binding.btnContinue.setOnClickListener {
             val code = binding.etCodeInput.text.toString()
             viewModel.checkQuiz(code)
@@ -71,6 +76,12 @@ class DashboardFragment : BaseFragment() {
 
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
+        lifecycleScope.launch {
+            viewModel.previousRole.collect {
+                binding.btnSwitchRole.isVisible = viewModel.previousRole.value == "teacher"
+            }
+        }
+
         lifecycleScope.launch {
             viewModel.shouldNavigate.collect {
                 val base = viewModel.quizInfo.value

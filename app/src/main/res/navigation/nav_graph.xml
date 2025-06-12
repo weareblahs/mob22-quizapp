@@ -28,6 +28,7 @@
         android:name="com.quizapp.ui.auth.role_selection.RoleSelectionFragment"
         android:label="fragment_role_selection"
         tools:layout="@layout/fragment_role_selection" >
+        <argument android:name="isFirstTime" app:nullable="false" app:argType="boolean"/>
         <action
             android:id="@+id/action_roleSelectionFragment_to_teacherDashboard"
             app:destination="@id/teacherDashboard"
@@ -53,6 +54,9 @@
         <action
             android:id="@+id/action_teacherDashboard_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_teacherDashboard_to_roleSelectionFragment"
+            app:destination="@id/roleSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentDashboard"
@@ -65,6 +69,9 @@
         <action
             android:id="@+id/action_studentDashboard_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_studentDashboard_to_roleSelectionFragment"
+            app:destination="@id/roleSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/addQuizFragment"

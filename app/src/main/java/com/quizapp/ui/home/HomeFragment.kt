@@ -42,6 +42,9 @@ class DashboardFragment : BaseFragment() {
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
         }
+        binding.btnSwitchRole.setOnClickListener {
+            findNavController().navigate(DashboardFragmentDirections.actionTeacherDashboardToRoleSelectionFragment(false))
+        }
     }
 
     override fun setupViewModelObserver() {
